@@ -1,0 +1,48 @@
+{% extends 'base_inicio.html' %}
+{% load staticfiles %}
+
+{% block content %}
+			<!-- SECTION -->
+			<section>
+				<div class="container">
+					
+					<div class="row">
+
+						<div class="col-md-6 col-sm-6"><!-- left image -->
+							<!-- add class "controlls-over" if you need the button controlls over the image -->
+							<div class="owl-carousel controlls-over" data-plugin-options='{"items": 1, "autoHeight": true, "navigation": true, "pagination": false, "transitionStyle":"fadeUp"}'><!-- transitionStyle: fade, backSlide, goDown, fadeUp,  -->
+								<div>
+									<img alt="" class="img-responsive" src="{% static 'assets/images/imagen1.jpg' %}">
+								</div>
+								<div>
+									<img alt="" class="img-responsive" src="{% static 'assets/images/imagen2.jpg' %}">
+								</div>
+								<div>
+									<img alt="" class="img-responsive" src="{% static 'assets/images/imagen3.jpg' %}">
+								</div>
+								<div>
+									<img alt="" class="img-responsive" src="{% static 'assets/images/imagen4.jpg' %}">
+								</div>
+								<div>
+									<img alt="" class="img-responsive" src="{% static 'assets/images/imagen5.jpg' %}">
+								</div>
+							</div>
+						</div><!-- /left image -->
+
+						<div class="col-md-6 col-sm-6">
+							<h3><strong>Colegio Amelia Gallegos Díaz</strong> Riobamba, Ecuador</h3>
+							<p> Descripción del Colegio </p>
+							<ul class="list-icon spaced check-circle">
+								<li>Educación moderna</li>
+								<li>Laboratorios y biblioteca</li>
+								<li>Áreas Verdes, juegos y canchas deportivas</li>
+							</ul>
+						</div>
+
+					</div>
+
+				</div>
+			</section>
+			<!-- /SECTION -->
+			
+{% endblock content %}

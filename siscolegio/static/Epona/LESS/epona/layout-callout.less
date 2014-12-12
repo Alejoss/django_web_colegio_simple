@@ -1,0 +1,91 @@
+/** ********************************************** **
+	@Author			Dorin Grigoras
+	@Website		www.stepofweb.com
+	@Last Update	11:55 AM Sunday, May 04, 2014
+
+	Callout
+ **************************************************************** **/
+.callout {
+	z-index:10;
+	background-color:@callout-background-color;
+	padding:30px 0;
+}
+.callout.styleBackgroundColor h2,
+.callout.styleBackgroundColor h3,
+.callout.styleBackgroundColor h4,
+.callout.styleBackgroundColor p {
+	color:#fff;
+}
+.callout.styleBackgroundColor .btn {
+	border-color:rgba(255,255,255,0.3);
+}
+.callout h2,
+.callout h3,
+.callout h4 {
+	font-weight:300;
+	margin:0 0 8px 0;
+}
+.callout p {
+	margin:0;
+	padding:0;
+	font-size:16px;
+	font-weight:300;
+}
+.callout .btn {
+	margin-top:0;
+}
+
+
+.callout.dark,
+.callout.dark h2,
+.callout.dark h3,
+.callout.dark h4,
+.callout.dark p {
+	color:#fff;
+	background-color:#252525;
+}
+
+.callout.dark p {
+	color:#b1b1b1;
+	font-size:17px;
+	max-width:960px;
+	margin:auto;
+}
+.callout.dark.arrow-up,
+.callout.dark.arrow-down {
+	position:relative;
+	padding:60px 0;
+}
+
+.callout.dark.arrow-down:after{
+	content:' ';
+	position:absolute;
+	width: 0; height: 0; 
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid #252525;
+	left:50%; margin-left:-10px;
+	bottom:-20px;
+}
+.callout.dark.arrow-up:after{
+	content:' ';
+	position:absolute;
+	width: 0; height: 0; 
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-bottom: 20px solid #252525;
+	left:50%; margin-left:-10px;
+	top:-20px;
+}
+
+@media only screen and (max-width: 990px) {
+	.callout h2,
+	.callout h3,
+	.callout h4 {
+		font-size:18px;
+		font-weight:600;
+	}
+	.callout .btn {
+		margin-top:20px;
+	}
+}
