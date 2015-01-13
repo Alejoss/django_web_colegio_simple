@@ -8,5 +8,5 @@ urlpatterns = patterns('',
 		url(r'^docentes/$', views.docentes, name='docentes'),
 		url(r'^estudiantes/$', views.estudiantes, name='estudiantes'),
 		url(r'^blog/$', views.blog, name='blog'),
-		url(r'^sistema/$', views.sistema, name='sistema'),
+		url(r'^sislogin/$', views.sislogin, name='sislogin'),
 	)

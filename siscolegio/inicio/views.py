@@ -1,7 +1,12 @@
 from django.shortcuts import render
 
 
-# Create your views here.
+def sislogin(request):
+	template = "inicio/sislogin.html"
+	context = {}
+	return render(request, template, context)
+
+
 def inicio(request):
 	template = "inicio/inicio.html"
 	context = {}
@@ -28,11 +33,5 @@ def estudiantes(request):
 
 def blog(request):
 	template = "inicio/blog.html"
-	context = {}
-	return render(request, template, context)
-
-
-def sistema(request):
-	template = "inicio/sistema.html"
 	context = {}
 	return render(request, template, context)

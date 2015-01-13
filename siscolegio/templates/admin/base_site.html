@@ -1,0 +1,21 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block branding %}
+<h4 id="site-name">{% trans 'Administración' %}</h4>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block footer_links %}
+<a href="{% url 'inicio:inicio' %}">Página Web Pública</a>
+{% endblock %}
+
+{% block footer_branding %}
+<p> Colegio Amelia Gallegos </p>
+{% endblock footer_branding %}
+
+{% block copyright %}
+{% endblock copyright %}

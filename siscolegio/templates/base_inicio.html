@@ -76,7 +76,7 @@
 					<div class="container">
 
 						<!-- Logo -->
-						<a class="logo" href="index.html">
+						<a class="logo" href="{% url 'inicio:inicio' %}">
 							<img src="{% static 'assets/images/logo.png' %}" height="50" alt="" />
 						</a>
 
@@ -125,7 +125,7 @@
 										<a href="{% url 'inicio:blog' %}"> BLOG <span> noticias </span></a>
 									</li>
 									<li class="dropdown mega-menu">
-										<a href=""> SISTEMA ACADÉMICO <span> ingreso </span></a>
+										<a href="{% url 'inicio:sislogin' %}"> SISTEMA ACADÉMICO <span> ingreso </span></a>
 									</li>
 								</ul>
 							</nav>
@@ -164,5 +164,8 @@
 		<script type="text/javascript" src="{% static 'assets/plugins/owl-carousel/owl.carousel.min.js' %}"></script>
 		<script type="text/javascript" src="{% static 'assets/plugins/knob/js/jquery.knob.js' %}"></script>
 		<script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/js/scripts.js' %}"></script>
+		{% block extra_javascript %}
+		{% endblock extra_javascript %}
 	</body>
 </html>

@@ -1,0 +1,26 @@
+{% extends 'base_sisacademico.html' %}
+
+{% block content %}
+<div class = "row">
+	<div class = "col-md-8 col-md-offset-2">
+		<form id = "form_perfil_profesor" class="form-horizontal" action = "{% url 'sisacademico:perfil_profesor' %}" method = "post">
+		{% csrf_token %}
+		{{form_editar_perfil.as_table}}
+		<input class = "btn pull-right" type = "submit" value ="enviar"/>
+		<span class ="help-block">Si los campos son incorrectos, por favor acercarse a secretaría</span> 
+		</form>
+	</div>
+</div>
+<div class = "row">
+	<div class = "col-md-8 col-md-offset-2">
+		<ul class = "list-group">
+			<li class = "list-group-item"><strong>Usuario</strong>: {{user.username}}</li>
+			<li class = "list-group-item"><strong>Nombre</strong>: {{user.first_name}}</li>
+			<li class = "list-group-item"><strong>Apellido</strong>: {{user.last_name}}</li>
+			<li class = "list-group-item"><strong>Titulo</strong>: {{perfil_actual.titulo}}</li>
+			<li class = "list-group-item"><strong>Contacto</strong>: {{perfil_actual.num_contacto}}</li>
+			<li class = "list-group-item"><strong>Nivel</strong>: {{perfil_actual.nivel.nombre}}</li>
+		</ul>
+	</div>
+</div>
+{% endblock content%}

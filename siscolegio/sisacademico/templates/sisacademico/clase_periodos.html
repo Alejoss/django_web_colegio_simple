@@ -1,0 +1,28 @@
+{% extends 'base_sisacademico.html' %}
+
+{% block content %}
+	<div class = "row">
+		<div class = "col-md-8 col-md-offset-2">
+			<h2>{{clase.nombre}} - {{clase.nivel}}</h2>
+		</div>
+	</div>
+	<div class = "row">
+		<hr>
+		<div class = "col-md-5 col-md-offset-1">
+			<div class="list-group">
+				<a href="" class = "list-group-item disabled">Primer Quimestre</a>
+				{% for periodo in periodos_primer_quimestre %}
+					<a href="{% url 'sisacademico:clase_alumnos' clase.id periodo.id %}" class = "list-group-item">{{periodo.nombre_parcial}}</a>
+				{% endfor %}
+			</div>
+		</div>
+		<div class = "col-md-5">
+			<div class="list-group">
+				<a href="" class = "list-group-item disabled">Segundo Quimestre</a>
+				{% for periodo in periodos_segundo_quimestre %}
+					<a href="{% url 'sisacademico:clase_alumnos' clase.id periodo.id %}" class = "list-group-item">{{periodo.nombre_parcial}}</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock content %}

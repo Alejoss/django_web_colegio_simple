@@ -1,7 +1,8 @@
-
+# -*- coding: utf-8 -*-
 from os.path import join
 import os
 
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP  # Admin Suit
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -9,9 +10,8 @@ TEMPLATE_DIRS = (
     join(BASE_DIR,  'templates'),
 )
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+# login required redirect
+LOGIN_URL = 'inicio:sislogin'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')ibwzl2hfpzzf6dvj-1&!m7z*-$r@rv1kwad*2p5qqxj$$nt)q'
@@ -27,14 +27,26 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'inicio'
+    'inicio',
+    'sisacademico',
+    'south'
 )
+
+# Admin Suit
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Administración Colegio Amelia Gallegos'
+}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -63,7 +75,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-me'
 
 TIME_ZONE = 'UTC'
 
