@@ -36,17 +36,18 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'inicio',
     'sisacademico',
-    'south'
+    'south',
+    'easy_pdf'
 )
 
 # Admin Suit
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
 )
-
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Administración Colegio Amelia Gallegos'
 }
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -77,7 +78,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'es-me'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 

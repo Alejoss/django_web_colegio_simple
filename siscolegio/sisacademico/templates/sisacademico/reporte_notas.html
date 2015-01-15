@@ -1,0 +1,40 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+<style>
+td {text-align: left}
+th {text-align: right}
+</style>
+
+<h1> Colegio Amelia Gallegos </h1>
+<h2> {{clase.nombre}} - <small>{{clase.nivel}} / {{periodo.nombre_parcial}} </small> </h2>
+<hr>
+<div class = "row">
+	<div class = "col-md-12">
+		<table class = "table table-striped">
+			<thead>
+			<tr>
+				<th>Alumno</th>
+				<th>Tareas</th>
+				<th>Actividades Individuales</th>
+				<th>Actividades Grupales</th>
+				<th>Lecciones</th>
+				<th>Pruebas</th>
+				<th><i>Promedio</i></th>
+			</tr>
+			</thead>
+			<tbody>
+				{% for fila in lista_datos %}
+					<tr>
+						<td>{{fila.alumno.nombre_completo}}</td>
+						<td class = "nota_tareas" data-nota = "{{fila.tareas}}" >{{fila.tareas}}</td>
+						<td class = "nota_actividades_i" data-nota = "{{fila.actividades_individuales}}" >{{fila.actividades_individuales}}</td>
+						<td class = "nota_actividades_g" data-nota = "{{fila.actividades_grupales}}" >{{fila.actividades_grupales}}</td>
+						<td class = "nota_lecciones" data-nota = "{{fila.lecciones}}">{{fila.lecciones}}</td>
+						<td class = "nota_pruebas" data-nota = "{{fila.pruebas}}" >{{fila.pruebas}}</td>
+						<td class = "promedio" data-nota = "{{fila.promedio}}" >
+						<i>{{fila.promedio}}</i></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>

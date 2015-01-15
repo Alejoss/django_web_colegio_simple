@@ -13,7 +13,7 @@ class Alumno(models.Model):
 	num_contacto = models.IntegerField(null=True, blank=True)
 	representante = models.CharField(max_length=150, blank=True)
 	fecha_nacimiento = models.DateField(blank=True, null=True)
-	status = models.CharField(max_length=150)
+	status = models.CharField(max_length=150, choices=(("A", "Activo"), ("I", "Inactivo")))
 	nota_memo = models.TextField(blank=True)
 
 	class Meta:
@@ -49,7 +49,7 @@ class Matricula(models.Model):
 	ano_lectivo = models.PositiveIntegerField()
 	alumno = models.ForeignKey(Alumno)
 	nivel = models.ForeignKey(Nivel, null=True)
-	status = models.CharField(max_length=150)
+	status = models.CharField(max_length=150, choices=(("A", "Activo"), ("I", "Inactivo")))
 
 	class Meta:
 		verbose_name_plural = "matrículas"
@@ -63,7 +63,7 @@ class Perfil_Profesor(models.Model):
 	usuario = models.OneToOneField(User)
 	titulo = models.CharField(max_length=250, blank=True)
 	num_contacto = models.IntegerField(null=True, blank=True)
-	status = models.CharField(max_length=150)
+	status = models.CharField(max_length=150, choices=(("A", "Activo"), ("I", "Inactivo")))
 	nivel = models.ForeignKey(Nivel, null=True, blank=True)
 	nota_memo = models.TextField(blank=True)
 
@@ -77,7 +77,7 @@ class Perfil_Profesor(models.Model):
 
 	@property
 	def status_activo(self):
-		if self.status == "activo":
+		if self.status == "Activo":
 			return True
 		else:
 			return False
@@ -91,7 +91,7 @@ class Clase(models.Model):
 	nombre = models.CharField(max_length=250)
 	nivel = models.ForeignKey(Nivel)
 	descripcion = models.CharField(max_length=1000, blank=True, null=True)
-	status = models.CharField(max_length=150)
+	status = models.CharField(max_length=150, choices=(("A", "Activo"), ("I", "Inactivo")))
 
 	def __unicode__(self):
 		return "%s %s" % (self.nombre, self.nivel)
@@ -110,7 +110,7 @@ class Clase_Profesor(models.Model):
 
 
 class Nota(models.Model):
-	valor = models.PositiveSmallIntegerField(default=0)
+	valor = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
 	alumno = models.ForeignKey(Alumno)
 	periodo = models.ForeignKey('Periodo')
 	clase = models.ForeignKey(Clase)

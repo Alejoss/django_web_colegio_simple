@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from sisacademico.models import Perfil_Profesor, Clase_Profesor, Matricula, Nota
 
 

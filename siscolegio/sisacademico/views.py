@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 from django.contrib import auth
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+
+from easy_pdf.views import PDFTemplateView
 
 from utils import obtener_perfil_profesor, obtener_clases_profesor, obtener_alumnos_clase,\
                 obtener_fila_alumno_notas, obtener_editar_valor_nota
@@ -99,6 +101,27 @@ def editar_notas(request):
 			obtener_editar_valor_nota(clase=clase, periodo=periodo, alumno=alumno, tipo="lecciones", valor=lecciones)
 
 			return redirect('sisacademico:clase_alumnos', clase.id, periodo.id)
+
+
+class ReporteNotasPDF(PDFTemplateView):
+
+	def get_context_data(self, **kwargs):
+		context = super(ReporteNotasPDF, self).get_context_data(**kwargs)
+		periodo_id = kwargs["periodo_id"]
+		clase_id = kwargs["clase_id"]
+		periodo = get_object_or_404(Periodo, id=periodo_id)
+		clase = get_object_or_404(Clase, id=clase_id)
+		alumnos_clase = obtener_alumnos_clase(clase)
+		lista_datos = []
+		for alumno in alumnos_clase:
+			notas_alumno = obtener_fila_alumno_notas(alumno, clase, periodo)
+			lista_datos.append(notas_alumno)
+		context["clase"] = clase
+		context["periodo"] = periodo
+		context["lista_datos"] = lista_datos
+		return context
+
+	template_name = "sisacademico/reporte_notas.html"
 
 
 def logout(request):
