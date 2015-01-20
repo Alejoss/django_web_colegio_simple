@@ -1,10 +1,20 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import patterns, url
+from django.contrib.auth.views import password_change
 
 from sisacademico import views
 
 urlpatterns = patterns('',
+		url(r'^alumno_notas/$', views.alumno_notas, name='alumno_notas'),
+		url(r'^alumnos/$', views.alumnos, name='alumnos'),
+
 		url(r'^authcheck/$', views.authcheck, name='authcheck'),
+		url(r'^cambiar_password/password_changed/$', views.password_changed, name='password_changed'),
+		url(r'^cambiar_password/$', password_change,
+			{'template_name': 'sisacademico/cambiar_password.html',
+			 'post_change_redirect': 'password_changed/'},
+			    name='cambiar_password'),
+
 		url(r'^perfil_profesor/$', views.perfil_profesor, name='perfil_profesor'),
 		url(r'^logout/$', views.logout, name='logout'),
 		url(r'^clases/$', views.clases, name='clases'),

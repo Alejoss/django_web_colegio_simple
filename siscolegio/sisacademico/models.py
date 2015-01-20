@@ -20,7 +20,7 @@ class Alumno(models.Model):
 		ordering = ("apellido", "nombre")
 
 	def __unicode__(self):
-		return "%s %s" % (self.nombre, self.apellido)
+		return u"%s %s" % (self.nombre, self.apellido)
 
 	@property
 	def nombre_completo(self):
@@ -56,7 +56,7 @@ class Matricula(models.Model):
 		verbose_name = "matrícula"
 
 	def __unicode__(self):
-		return "Matricula %s %s" % (self.alumno, self.ano_lectivo)
+		return u"Matricula %s %s" % (self.alumno, self.ano_lectivo)
 
 
 class Perfil_Profesor(models.Model):
@@ -94,7 +94,7 @@ class Clase(models.Model):
 	status = models.CharField(max_length=150, choices=(("A", "Activo"), ("I", "Inactivo")))
 
 	def __unicode__(self):
-		return "%s %s" % (self.nombre, self.nivel)
+		return u"%s %s" % (self.nombre, self.nivel)
 
 	class Meta:
 		ordering = ("nombre",)
@@ -103,6 +103,9 @@ class Clase(models.Model):
 class Clase_Profesor(models.Model):
 	profesor = models.ForeignKey(Perfil_Profesor, null=True, blank=True)
 	clase = models.ForeignKey(Clase, null=True, blank=True)
+
+	def __unicode__(self):
+		return u"%s - %s" % (self.profesor, self.clase)
 
 	class Meta:
 		verbose_name = "Profesor de Clase"
@@ -117,11 +120,11 @@ class Nota(models.Model):
 	tipo = models.CharField(max_length=150)
 
 	def __unicode__(self):
-		return "%s - %s" % (self.alumno, self.periodo)
+		return u"%s - %s" % (self.alumno, self.periodo)
 
 
 class Periodo(models.Model):
-	ano = models.IntegerField(null=False)
+	ano_lectivo = models.CharField(max_length=150, blank=True)
 	quimestre = models.IntegerField(null=False)
 	parcial = models.IntegerField(null=False)
 
@@ -130,7 +133,7 @@ class Periodo(models.Model):
 		_numero_string = {1: "primer", 2: "segundo", 3: "tercer"}
 		n_parcial = _numero_string[self.parcial]
 		n_quimestre = _numero_string[self.quimestre]
-		return "%s parcial del %s quimestre %s" % (n_parcial, n_quimestre, self.ano)
+		return "%s parcial del %s quimestre %s" % (n_parcial, n_quimestre, self.ano_lectivo)
 
 	@property
 	def nombre_parcial(self):

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from sisacademico.models import Perfil_Profesor, Clase_Profesor, Matricula, Nota
+from sisacademico.models import Perfil_Profesor, Clase_Profesor, Matricula, \
+                                Nota, Clase_Profesor, Clase
 
 
 def obtener_perfil_profesor(user):
@@ -50,6 +51,7 @@ def calcular_promedio_notas(notas):
 
 
 def obtener_fila_alumno_notas(alumno, clase, periodo):
+	# Para la vista del profesor
 	notas = {}
 	notas_obj = Nota.objects.filter(alumno=alumno, clase=clase, periodo=periodo)
 	for nota in notas_obj:
@@ -62,4 +64,53 @@ def obtener_fila_alumno_notas(alumno, clase, periodo):
 	notas['promedio'] = calcular_promedio_notas(notas)
 	notas['alumno'] = alumno
 
+	return notas
+
+
+def obtener_clases_nivel(nivel):
+	clases_nivel = Clase.objects.filter(nivel=nivel)
+	return clases_nivel
+
+
+def is_number(s):
+	# prueba a ver si un string es un numero
+	print s
+	try:
+		float(s)
+		return True
+	except (ValueError, TypeError):
+		return False
+
+
+def calcular_promedio_reporte_alumno(notas):
+	# recibe el diccionario de obtener_notas_alumno
+	notas_promedio = []
+	for nota in notas.itervalues():
+		if is_number(nota):
+			notas_promedio.append(float(nota))
+
+	promedio = "-"
+	try:
+		promedio = "{0:.2f}".format(sum(notas_promedio)/float(len(notas_promedio)))
+	except ZeroDivisionError:
+		promedio = "-"
+
+	return promedio
+
+
+def obtener_notas_alumno(alumno, clases, periodo):
+	notas = []
+	for clase in clases:
+		notas_clase = {}
+		notas_clase['clase'] = clase
+		notas_obj = Nota.objects.filter(alumno=alumno, clase=clase, periodo=periodo)
+		for nota in notas_obj:
+			if nota.valor:
+				notas_clase[nota.tipo] = nota.valor
+			else:
+				notas_clase[nota.tipo] = "-"
+
+		notas_clase['promedio'] = calcular_promedio_reporte_alumno(notas_clase)
+
+		notas.append(notas_clase)
 	return notas

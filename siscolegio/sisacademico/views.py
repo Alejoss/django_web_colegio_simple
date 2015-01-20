@@ -6,9 +6,10 @@ from django.contrib.auth.decorators import login_required
 from easy_pdf.views import PDFTemplateView
 
 from utils import obtener_perfil_profesor, obtener_clases_profesor, obtener_alumnos_clase,\
-                obtener_fila_alumno_notas, obtener_editar_valor_nota
-from models import Clase, Periodo, Perfil_Profesor, Alumno
-from forms import FormPerfilProfesor, FormEditarNotas
+                obtener_fila_alumno_notas, obtener_editar_valor_nota, obtener_clases_nivel, \
+                obtener_notas_alumno
+from models import Clase, Periodo, Perfil_Profesor, Alumno, Nivel
+from forms import FormPerfilProfesor, FormEditarNotas, FormBuscarAlumno
 
 
 def authcheck(request):
@@ -21,6 +22,12 @@ def authcheck(request):
 		return redirect('sisacademico:clases')
 	else:
 		return redirect('inicio:sislogin')
+
+
+def password_changed(request):
+	template = 'sisacademico/password_changed.html'
+	context = {}
+	return render(request, template, context)
 
 
 def perfil_profesor(request):
@@ -53,10 +60,8 @@ def clases(request):
 def clase_periodos(request, clase_id):
 	template = "sisacademico/clase_periodos.html"
 	clase = get_object_or_404(Clase, id=clase_id)
-	periodos_primer_quimestre = Periodo.objects.filter(quimestre=1)
-	periodos_segundo_quimestre = Periodo.objects.filter(quimestre=2)
-	context = {'periodos_primer_quimestre': periodos_primer_quimestre,
-		       'periodos_segundo_quimestre': periodos_segundo_quimestre,
+	periodos = Periodo.objects.all()
+	context = {'periodos': periodos,
 		       'clase': clase}
 	return render(request, template, context)
 
@@ -127,3 +132,24 @@ class ReporteNotasPDF(PDFTemplateView):
 def logout(request):
     auth.logout(request)  # Logout el user guardado en Request
     return redirect('inicio:sislogin')
+
+
+def alumnos(request):
+	template = "sisacademico/alumnos.html"
+	form_alumnos = FormBuscarAlumno
+	context = {'form_alumnos': form_alumnos}
+	return render(request, template, context)
+
+
+def alumno_notas(request):
+	template = "sisacademico/alumno_notas.html"
+
+	nivel = get_object_or_404(Nivel, pk=request.GET["nivel"])
+	alumno = get_object_or_404(Alumno, pk=request.GET["cedula"])
+	periodo = get_object_or_404(Periodo, pk=request.GET["periodo"])
+
+	clases = obtener_clases_nivel(nivel)
+	notas = obtener_notas_alumno(alumno, clases, periodo)
+
+	context = {'notas': notas, 'alumno': alumno, 'periodo': periodo}
+	return render(request, template, context)
