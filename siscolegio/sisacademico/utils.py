@@ -31,9 +31,10 @@ def obtener_editar_valor_nota(alumno, clase, periodo, tipo, valor=None):
 		nota_obj.valor = valor
 		nota_obj.save()
 	else:
-		if creado:
+		if not nota_obj.valor or creado:
 			return 1
 		else:
+			print nota_obj.valor
 			return nota_obj.valor
 
 
@@ -53,9 +54,9 @@ def calcular_promedio_notas(notas):
 def obtener_fila_alumno_notas(alumno, clase, periodo):
 	# Para la vista del profesor
 	notas = {}
-	notas_obj = Nota.objects.filter(alumno=alumno, clase=clase, periodo=periodo)
-	for nota in notas_obj:
-		notas[nota.tipo] = nota.valor
+	#notas_obj = Nota.objects.filter(alumno=alumno, clase=clase, periodo=periodo)
+	#for nota in notas_obj:
+		#notas[nota.tipo] = nota.valor
 	notas['tareas'] = obtener_editar_valor_nota(alumno, clase, periodo, "tareas")
 	notas['actividades_individuales'] = obtener_editar_valor_nota(alumno, clase, periodo, "act_ind")
 	notas['actividades_grupales'] = obtener_editar_valor_nota(alumno, clase, periodo, "act_gru")

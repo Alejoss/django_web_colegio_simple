@@ -17,7 +17,7 @@ class Alumno(models.Model):
 	nota_memo = models.TextField(blank=True)
 
 	class Meta:
-		ordering = ("apellido", "nombre")
+		ordering = ("-apellido", "-nombre")
 
 	def __unicode__(self):
 		return u"%s %s" % (self.nombre, self.apellido)
@@ -25,7 +25,7 @@ class Alumno(models.Model):
 	@property
 	def nombre_completo(self):
 		return "{0} {1} {2} {3}".format(self.nombre, self.segundo_nombre,
-			                            self.apellido, self.segundo_apellido)
+										self.apellido, self.segundo_apellido)
 
 	@property
 	def datos_contacto(self):
@@ -54,6 +54,9 @@ class Matricula(models.Model):
 	class Meta:
 		verbose_name_plural = "matrículas"
 		verbose_name = "matrícula"
+
+		ordering = ("alumno",)
+
 
 	def __unicode__(self):
 		return u"Matricula %s %s" % (self.alumno, self.ano_lectivo)
@@ -140,6 +143,18 @@ class Periodo(models.Model):
 		_nombres_parciales = {1: "Primer Parcial", 2: "Segundo Parcial", 3: "Tercer Parcial"}
 		n_parcial = _nombres_parciales[self.parcial]
 		return n_parcial
+
+	@property
+	def nombre_quimestre(self):
+		_nombre_quimestre = ""
+		if self.quimestre == 1:
+			_nombre_quimestre = "Primer Quimestre"
+		elif self.quimestre == 2:
+			_nombre_quimestre = "Segundo Quimestre"
+		elif self.quimestre == 3:
+			_nombre_quimestre = "Tercer Quimestre"
+
+		return _nombre_quimestre
 
 	def __unicode__(self):
 		return self.nombre_periodo

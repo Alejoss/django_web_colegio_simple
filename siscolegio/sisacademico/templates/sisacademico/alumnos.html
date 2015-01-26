@@ -3,9 +3,11 @@
 
 {% block content %}
 <div class = "col-md-6 col-md-offset-2">
-	<form action = "{% url 'sisacademico:alumno_notas' %}" method="get">
-	{{form_alumnos.as_table}}
-	<input type="submit" value="Enviar"/>
+	<form role = "form"action = "{% url 'sisacademico:alumno_notas' %}" method="get">
+	<div class = "form-group">
+	{{form_alumnos}}
+	</div>
+	<input class = "btn btn-default" type="submit" value="Enviar"/>
 	</form>
 </div>
 {% endblock content %}

@@ -12,9 +12,6 @@
 <hr>
 <div class = "row">
 	<div class = "col-md-12">
-	<a href="{% url 'sisacademico:reporte_notas' clase.id periodo.id %}" class = "pull-right"> Reporte Notas PDF</a>
-	</div>
-	<div class = "col-md-12">
 		<table class = "table table-striped">
 			<thead>
 			<tr>
@@ -33,7 +30,7 @@
 				{% for fila in lista_datos %}
 					<tr>
 						<td> {{forloop.counter}} </td>
-						<td>{{fila.alumno.nombre_completo}}</td>
+						<td>{{fila.alumno.nombre_completo|upper}}</td>
 						<td class = "nota_tareas" data-nota = "{{fila.tareas}}" >{{fila.tareas}}</td>
 						<td class = "nota_actividades_i" data-nota = "{{fila.actividades_individuales}}" >{{fila.actividades_individuales}}</td>
 						<td class = "nota_actividades_g" data-nota = "{{fila.actividades_grupales}}" >{{fila.actividades_grupales}}</td>

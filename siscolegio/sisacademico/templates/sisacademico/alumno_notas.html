@@ -1,35 +1,46 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+<style type = "text/css">
+  h1 {
+  			text-align: center;
+        }
+  td {
+       		border-bottom: 0.5px solid black;
+       		padding: 1px;
+       		text-align: right;
+        }
 
+</style>
+
+<body>
 <h1> Colegio Amelia Gallegos </h1>
-<h2> {{alumno.nombre_completo}} - <small>{{periodo.nombre_parcial}} </small> </h2>
-<div class = "row">
-	<div class = "col-md-12">
-		<table class = "table table-striped">
-			<thead>
+<h2> {{alumno.nombre_completo}} - <small>{{periodo.nombre_parcial}} / {{periodo.nombre_quimestre}} </small> </h2>
+
+<div class = "tabla_notas">
+<table class ="">
+	<thead>
+	<tr>
+		<th>Clase</th>
+		<th>Tareas</th>
+		<th>Actividades Individuales</th>
+		<th>Actividades Grupales</th>
+		<th>Lecciones</th>
+		<th>Pruebas</th>
+		<th><i>Promedio</i></th>
+	</tr>
+	</thead>
+	<tbody>
+		{% for nota in notas %}
 			<tr>
-				<th>Clase</th>
-				<th>Tareas</th>
-				<th>Actividades Individuales</th>
-				<th>Actividades Grupales</th>
-				<th>Lecciones</th>
-				<th>Pruebas</th>
-				<th><i>Promedio</i></th>
+				<td>{{nota.clase.nombre}}</td>
+				<td class = "nota_tareas" data-nota = "{{nota.tareas}}" >{{nota.tareas}}</td>
+				<td class = "nota_actividades_i" data-nota = "{{nota.act_ind}}" >{{nota.act_ind}}</td>
+				<td class = "nota_actividades_g" data-nota = "{{nota.act_gru}}" >{{nota.act_gru}}</td>
+				<td class = "nota_lecciones" data-nota = "{{nota.lecciones}}">{{nota.lecciones}}</td>
+				<td class = "nota_pruebas" data-nota = "{{nota.pruebas}}" >{{nota.pruebas}}</td>
+				<td class = "promedio" data-nota = "{{nota.promedio}}" >
+				<i>{{nota.promedio}}</i></td>
 			</tr>
-			</thead>
-			<tbody>
-				{% for nota in notas %}
-					<tr>
-						<td>{{nota.clase.nombre}}</td>
-						<td class = "nota_tareas" data-nota = "{{nota.tareas}}" >{{nota.tareas}}</td>
-						<td class = "nota_actividades_i" data-nota = "{{nota.act_ind}}" >{{nota.act_ind}}</td>
-						<td class = "nota_actividades_g" data-nota = "{{nota.act_gru}}" >{{nota.act_gru}}</td>
-						<td class = "nota_lecciones" data-nota = "{{nota.lecciones}}">{{nota.lecciones}}</td>
-						<td class = "nota_pruebas" data-nota = "{{nota.pruebas}}" >{{nota.pruebas}}</td>
-						<td class = "promedio" data-nota = "{{nota.promedio}}" >
-						<i>{{nota.promedio}}</i></td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
+		{% endfor %}
+	</tbody>
+</table>
 </div>
+</body>

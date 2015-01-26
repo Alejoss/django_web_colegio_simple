@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Select, PasswordInput
+from django.contrib.auth.forms import PasswordChangeForm
 
 from sisacademico.models import Perfil_Profesor, Periodo, Nivel
 
+"""
+class FormCambiarPassword(PasswordChangeForm):
+
+	class Meta:
+		widgets = {
+			'old_password': PasswordInput(attrs={'class': 'form-control'}),
+			'new_password1': PasswordInput(attrs={'class': 'form-control'}),
+			'new_password2': PasswordInput(attrs={'class': 'form-control'})
+		}
+"""
 
 class NumberInput(TextInput):
 	input_type = 'number'
@@ -20,9 +31,9 @@ class FormBuscarAlumno(forms.Form):
 	for n in niveles_obj:
 		niveles.append((n.id, n.nombre))
 
-	cedula = forms.IntegerField(required=False, widget=NumberInput(attrs={}))
-	periodo = forms.ChoiceField(choices=periodos)
-	nivel = forms.ChoiceField(choices=niveles)
+	cedula = forms.IntegerField(required=False, widget=NumberInput(attrs={'class':'form-control'}))
+	periodo = forms.ChoiceField(choices=periodos, widget=Select(attrs={'class':'form-control'}))
+	nivel = forms.ChoiceField(choices=niveles, widget=Select(attrs={'class':'form-control'}))
 
 
 class FormPerfilProfesor(forms.ModelForm):
@@ -43,15 +54,15 @@ class FormPerfilProfesor(forms.ModelForm):
 class FormEditarNotas(forms.Form):
 
 	tareas = forms.FloatField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_tareas', 'step': '0.1'}))
-	actividades_individuales = forms.DecimalField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_act_ind', 'type': 'number', 'step': '0.1'}))
-	actividades_grupales = forms.DecimalField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_act_gru', 'type': 'number', 'step': '0.1'}))
-	lecciones = forms.DecimalField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_lecciones', 'type': 'number', 'step': '0.1'}))
-	pruebas = forms.DecimalField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_pruebas', 'type': 'number', 'step': '0.1'}))
+		widget=NumberInput(attrs={'id': 'form_tareas', 'step': '0.1', 'max': '10'}))
+	actividades_individuales = forms.FloatField(required=False, max_value=10, min_value=0,
+		widget=NumberInput(attrs={'id': 'form_act_ind', 'type': 'number', 'step': '0.1', 'max': '10'}))
+	actividades_grupales = forms.FloatField(required=False, max_value=10, min_value=0,
+		widget=NumberInput(attrs={'id': 'form_act_gru', 'type': 'number', 'step': '0.1', 'max': '10'}))
+	lecciones = forms.FloatField(required=False, max_value=10, min_value=0,
+		widget=NumberInput(attrs={'id': 'form_lecciones', 'type': 'number', 'step': '0.1', 'max': '10'}))
+	pruebas = forms.FloatField(required=False, max_value=10, min_value=0,
+		widget=NumberInput(attrs={'id': 'form_pruebas', 'type': 'number', 'step': '0.1', 'max': '10'}))
 	clase = forms.CharField(required=False,
 		widget=TextInput(attrs={'id': 'form_clase'}))
 	alumno = forms.CharField(required=False,

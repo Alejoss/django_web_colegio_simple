@@ -107,7 +107,7 @@ def editar_notas(request):
 
 			return redirect('sisacademico:clase_alumnos', clase.id, periodo.id)
 
-
+"""
 class ReporteNotasPDF(PDFTemplateView):
 
 	def get_context_data(self, **kwargs):
@@ -127,6 +127,7 @@ class ReporteNotasPDF(PDFTemplateView):
 		return context
 
 	template_name = "sisacademico/reporte_notas.html"
+"""
 
 
 def logout(request):
@@ -141,15 +142,19 @@ def alumnos(request):
 	return render(request, template, context)
 
 
-def alumno_notas(request):
-	template = "sisacademico/alumno_notas.html"
+class reporte_alumno_notas(PDFTemplateView):
+	template_name = "sisacademico/alumno_notas.html"
 
-	nivel = get_object_or_404(Nivel, pk=request.GET["nivel"])
-	alumno = get_object_or_404(Alumno, pk=request.GET["cedula"])
-	periodo = get_object_or_404(Periodo, pk=request.GET["periodo"])
+	def get_context_data(self, **kwargs):
+		context = super(reporte_alumno_notas, self).get_context_data(**kwargs)
+		nivel = get_object_or_404(Nivel, pk=self.request.GET["nivel"])
+		alumno = get_object_or_404(Alumno, pk=self.request.GET["cedula"])
+		periodo = get_object_or_404(Periodo, pk=self.request.GET["periodo"])
+		clases = obtener_clases_nivel(nivel)
+		context["nivel"] = nivel
+		context["alumno"] = alumno
+		context["periodo"] = periodo
+		context["clases"] = clases
+		context["notas"] = obtener_notas_alumno(alumno, clases, periodo)
 
-	clases = obtener_clases_nivel(nivel)
-	notas = obtener_notas_alumno(alumno, clases, periodo)
-
-	context = {'notas': notas, 'alumno': alumno, 'periodo': periodo}
-	return render(request, template, context)
+		return context
