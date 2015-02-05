@@ -54,15 +54,15 @@ class FormPerfilProfesor(forms.ModelForm):
 class FormEditarNotas(forms.Form):
 
 	tareas = forms.FloatField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_tareas', 'step': '0.1', 'max': '10'}))
+		widget=NumberInput(attrs={'id': 'form_tareas', 'step': '0.1', 'max': '10', 'min': '0'}))
 	actividades_individuales = forms.FloatField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_act_ind', 'type': 'number', 'step': '0.1', 'max': '10'}))
+		widget=NumberInput(attrs={'id': 'form_act_ind', 'type': 'number', 'step': '0.1', 'max': '10', 'min': '0'}))
 	actividades_grupales = forms.FloatField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_act_gru', 'type': 'number', 'step': '0.1', 'max': '10'}))
+		widget=NumberInput(attrs={'id': 'form_act_gru', 'type': 'number', 'step': '0.1', 'max': '10', 'min': '0'}))
 	lecciones = forms.FloatField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_lecciones', 'type': 'number', 'step': '0.1', 'max': '10'}))
+		widget=NumberInput(attrs={'id': 'form_lecciones', 'type': 'number', 'step': '0.1', 'max': '10', 'min': '0'}))
 	pruebas = forms.FloatField(required=False, max_value=10, min_value=0,
-		widget=NumberInput(attrs={'id': 'form_pruebas', 'type': 'number', 'step': '0.1', 'max': '10'}))
+		widget=NumberInput(attrs={'id': 'form_pruebas', 'type': 'number', 'step': '0.1', 'max': '10', 'min': '0'}))
 	clase = forms.CharField(required=False,
 		widget=TextInput(attrs={'id': 'form_clase'}))
 	alumno = forms.CharField(required=False,
