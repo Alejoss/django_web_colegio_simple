@@ -31,9 +31,9 @@ class FormBuscarAlumno(forms.Form):
 	for n in niveles_obj:
 		niveles.append((n.id, n.nombre))
 
-	cedula = forms.IntegerField(required=False, widget=NumberInput(attrs={'class':'form-control'}))
-	periodo = forms.ChoiceField(choices=periodos, widget=Select(attrs={'class':'form-control'}))
-	nivel = forms.ChoiceField(choices=niveles, widget=Select(attrs={'class':'form-control'}))
+	cedula = forms.IntegerField(required=False, widget=NumberInput(attrs={'class': 'form-control'}))
+	periodo = forms.ChoiceField(choices=periodos, widget=Select(attrs={'class': 'form-control'}))
+	nivel = forms.ChoiceField(choices=niveles, widget=Select(attrs={'class': 'form-control', 'name': 'nivel'}))
 
 
 class FormPerfilProfesor(forms.ModelForm):

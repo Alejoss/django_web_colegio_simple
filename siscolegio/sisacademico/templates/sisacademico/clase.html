@@ -8,6 +8,11 @@
 
 
 {% block content %}
+<style>
+.celda_nota{
+	text-align: center
+}
+</style>
 <h1> {{clase.nombre}} - <small> {{periodo.nombre_parcial}} </small> </h1>
 <hr>
 <div class = "row">
@@ -31,12 +36,12 @@
 					<tr>
 						<td> {{forloop.counter}} </td>
 						<td>{{fila.alumno.nombre_completo|upper}}</td>
-						<td class = "nota_tareas" data-nota = "{{fila.tareas}}" >{{fila.tareas}}</td>
-						<td class = "nota_actividades_i" data-nota = "{{fila.actividades_individuales}}" >{{fila.actividades_individuales}}</td>
-						<td class = "nota_actividades_g" data-nota = "{{fila.actividades_grupales}}" >{{fila.actividades_grupales}}</td>
-						<td class = "nota_lecciones" data-nota = "{{fila.lecciones}}">{{fila.lecciones}}</td>
-						<td class = "nota_pruebas" data-nota = "{{fila.pruebas}}" >{{fila.pruebas}}</td>
-						<td class = "promedio" data-nota = "{{fila.promedio}}" >
+						<td class = "celda_nota nota_tareas" data-nota = "{{fila.tareas}}" >{{fila.tareas}}</td>
+						<td class = "celda_nota nota_actividades_i" data-nota = "{{fila.actividades_individuales}}" >{{fila.actividades_individuales}}</td>
+						<td class = "celda_nota nota_actividades_g" data-nota = "{{fila.actividades_grupales}}" >{{fila.actividades_grupales}}</td>
+						<td class = "celda_nota nota_lecciones" data-nota = "{{fila.lecciones}}">{{fila.lecciones}}</td>
+						<td class = "celda_nota nota_pruebas" data-nota = "{{fila.pruebas}}" >{{fila.pruebas}}</td>
+						<td class = "celda_nota promedio" data-nota = "{{fila.promedio}}" >
 						<i>{{fila.promedio}}</i></td>
 						<td>
 							<span class = "alumno_id hidden">{{fila.alumno.cedula}}</span>
@@ -70,36 +75,56 @@ aria-labelledby="Formulario Notas" aria-hidden="true">
 			{{form_editar_notas.non_field_errors}}
 			<fieldset>
 			<div class = "form-group">
+				<div class = "col-md-7">
 				{{form_editar_notas.tareas.errors}}
 				<label class = "control-label" for="texto"> Tareas </label>
+				</div>
+				<div class = "col-md-5">
 				{{form_editar_notas.tareas}}
+				</div>
 			</div>
 			<div class = "form-group">
+				<div class = "col-md-7">
 				{{form_editar_notas.lecciones.errors}}
 				<label class = "control-label" for="texto"> Lecciones </label>
+				</div>
+				<div class = "col-md-5">
 				{{form_editar_notas.lecciones}}
+				</div>
 			</div>
 			<div class = "form-group">
+				<div class = "col-md-7">
 				{{form_editar_notas.pruebas.errors}}
 				<label class = "control-label" for="texto"> Pruebas </label>
+				</div>
+				<div class = "col-md-5">
 				{{form_editar_notas.pruebas}}
+				</div>
 			</div>
 			<div class = "form-group">
+				<div class = "col-md-7">
 				{{form_editar_notas.actividades_individuales.errors}}
 				<label class = "control-label" for="texto"> Actividades Individuales</label>
+				</div>
+				<div class = "col-md-5">
 				{{form_editar_notas.actividades_individuales}}
+				</div>
 			</div>
 			<div class = "form-group">
+				<div class = "col-md-7">
 				{{form_editar_notas.actividades_grupales.errors}}
 				<label class = "control-label" for="texto"> Actividades Grupales</label>
+				</div>
+				<div class = "col-md-5">
 				{{form_editar_notas.actividades_grupales}}
+				</div>
 			</div>
 			<div class = "hidden">
 			{{form_editar_notas.clase}}
 			{{form_editar_notas.alumno}}
 			{{form_editar_notas.periodo}}
 			</div>
-			<input class = "btn pull-right" type = "submit" value ="enviar"/>
+			<input class = "btn pull-right" type = "submit" value ="Guardar"/>
 			</fieldset>
 			</form>
 		</div>

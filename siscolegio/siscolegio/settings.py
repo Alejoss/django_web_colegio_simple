@@ -37,7 +37,6 @@ INSTALLED_APPS = (
     'inicio',
     'sisacademico',
     'south',
-    'easy_pdf'
 )
 
 # Admin Suit

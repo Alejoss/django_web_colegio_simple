@@ -34,7 +34,6 @@ def obtener_editar_valor_nota(alumno, clase, periodo, tipo, valor=None):
 		if not nota_obj.valor or creado:
 			return 1
 		else:
-			print nota_obj.valor
 			return nota_obj.valor
 
 
@@ -75,7 +74,6 @@ def obtener_clases_nivel(nivel):
 
 def is_number(s):
 	# prueba a ver si un string es un numero
-	print s
 	try:
 		float(s)
 		return True

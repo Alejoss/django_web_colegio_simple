@@ -17,10 +17,10 @@ class Alumno(models.Model):
 	nota_memo = models.TextField(blank=True)
 
 	class Meta:
-		ordering = ("-apellido", "-nombre")
+		ordering = ("apellido", "nombre")
 
 	def __unicode__(self):
-		return u"%s %s" % (self.nombre, self.apellido)
+		return u"%s %s" % (self.apellido.upper(), self.nombre.upper())
 
 	@property
 	def nombre_completo(self):
@@ -57,7 +57,6 @@ class Matricula(models.Model):
 
 		ordering = ("alumno",)
 
-
 	def __unicode__(self):
 		return u"Matricula %s %s" % (self.alumno, self.ano_lectivo)
 
@@ -71,12 +70,12 @@ class Perfil_Profesor(models.Model):
 	nota_memo = models.TextField(blank=True)
 
 	class Meta:
-		ordering = ("usuario",)
+		ordering = ("-usuario",)
 		verbose_name = "perfil de profesor"
 		verbose_name_plural = "perfiles de profesores"
 
 	def __unicode__(self):
-		return "%s %s" % (self.usuario.first_name, self.usuario.last_name)
+		return "%s %s" % (self.usuario.last_name.upper(), self.usuario.first_name.upper())
 
 	@property
 	def status_activo(self):
@@ -111,6 +110,7 @@ class Clase_Profesor(models.Model):
 		return u"%s - %s" % (self.profesor, self.clase)
 
 	class Meta:
+		ordering = ("profesor",)
 		verbose_name = "Profesor de Clase"
 		verbose_name_plural = "Profesores de cada clase"
 

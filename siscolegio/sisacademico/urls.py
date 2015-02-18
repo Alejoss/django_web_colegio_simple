@@ -7,7 +7,7 @@ from django.contrib.auth.views import password_change
 from sisacademico import views
 
 urlpatterns = patterns('',
-		url(r'^alumno_notas/$', views.reporte_alumno_notas.as_view(), name='alumno_notas'),
+		url(r'^alumno_notas/$', views.reporte_alumno_notas, name='alumno_notas'),
 		url(r'^alumnos/$', views.alumnos, name='alumnos'),
 
 		url(r'^authcheck/$', views.authcheck, name='authcheck'),

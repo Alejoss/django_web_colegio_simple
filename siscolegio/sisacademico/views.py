@@ -3,8 +3,6 @@ from django.contrib import auth
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from easy_pdf.views import PDFTemplateView
-
 from utils import obtener_perfil_profesor, obtener_clases_profesor, obtener_alumnos_clase,\
                 obtener_fila_alumno_notas, obtener_editar_valor_nota, obtener_clases_nivel, \
                 obtener_notas_alumno
@@ -107,28 +105,6 @@ def editar_notas(request):
 
 			return redirect('sisacademico:clase_alumnos', clase.id, periodo.id)
 
-"""
-class ReporteNotasPDF(PDFTemplateView):
-
-	def get_context_data(self, **kwargs):
-		context = super(ReporteNotasPDF, self).get_context_data(**kwargs)
-		periodo_id = kwargs["periodo_id"]
-		clase_id = kwargs["clase_id"]
-		periodo = get_object_or_404(Periodo, id=periodo_id)
-		clase = get_object_or_404(Clase, id=clase_id)
-		alumnos_clase = obtener_alumnos_clase(clase)
-		lista_datos = []
-		for alumno in alumnos_clase:
-			notas_alumno = obtener_fila_alumno_notas(alumno, clase, periodo)
-			lista_datos.append(notas_alumno)
-		context["clase"] = clase
-		context["periodo"] = periodo
-		context["lista_datos"] = lista_datos
-		return context
-
-	template_name = "sisacademico/reporte_notas.html"
-"""
-
 
 def logout(request):
     auth.logout(request)  # Logout el user guardado en Request
@@ -142,19 +118,14 @@ def alumnos(request):
 	return render(request, template, context)
 
 
-class reporte_alumno_notas(PDFTemplateView):
-	template_name = "sisacademico/alumno_notas.html"
+def reporte_alumno_notas(request):
+	template = "sisacademico/alumno_notas.html"
 
-	def get_context_data(self, **kwargs):
-		context = super(reporte_alumno_notas, self).get_context_data(**kwargs)
-		nivel = get_object_or_404(Nivel, pk=self.request.GET["nivel"])
-		alumno = get_object_or_404(Alumno, pk=self.request.GET["cedula"])
-		periodo = get_object_or_404(Periodo, pk=self.request.GET["periodo"])
-		clases = obtener_clases_nivel(nivel)
-		context["nivel"] = nivel
-		context["alumno"] = alumno
-		context["periodo"] = periodo
-		context["clases"] = clases
-		context["notas"] = obtener_notas_alumno(alumno, clases, periodo)
+	nivel = get_object_or_404(Nivel, pk=request.GET.get("nivel", ""))
+	alumno = get_object_or_404(Alumno, pk=request.GET.get("cedula", " "))
+	periodo = get_object_or_404(Periodo, pk=request.GET.get("periodo", ""))
+	clases = obtener_clases_nivel(nivel)
+	notas = obtener_notas_alumno(alumno, clases, periodo)
+	context = {'nivel': nivel, 'alumno': alumno, 'periodo': periodo, 'clases': clases, 'notas': notas}
 
-		return context
+	return render(request, template, context)
