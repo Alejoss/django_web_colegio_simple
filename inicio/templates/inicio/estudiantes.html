@@ -1,0 +1,57 @@
+{% extends 'base_inicio.html' %}
+{% load staticfiles %}
+
+{% block content %}
+			<!-- CONTENT -->
+			<section>
+				<div class="container">
+
+					<div id="blog">
+
+						<!-- BLOG ARTICLE LIST -->
+						
+						<!-- article - image -->
+						<div class="prev-article row">
+							<div class="blog-prev-date col-md-3 col-sm-3">
+								<span class="date">
+									29 <small>JUN 2014</small>
+								</span>
+								<span class="info hidden-xs">
+									<span class="block"><i class="fa fa-user"></i> Química</span>
+									<span class="block">
+								</span>
+							</div>
+
+							<div class="col-md-9 col-sm-9">
+
+								<h2 class="article-title">Alumnos estrenan proyecto de Química</h2>
+
+								<!-- image -->
+								<figure>
+									<a href="#">
+										<img src="{% static 'assets/images/imagen4.jpg' %}" class="img-responsive" alt="blog" />
+									</a>
+								</figure>
+
+								<!-- blog short preview -->
+								<p>
+									Praesent augue arcu, ornare ut tincidunt eu, mattis a libero. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In elit purus, ullamcorper vel luctus vitae, venenatis eu odio. Vivamus tincidunt, urna quis consectetur venenatis, quam urna tincidunt mi, quis convallis enim dolor sed elit. Pellentesque ultricies congue lacus, eget elementum erat lobortis et. Sed non velit neque.
+								</p>
+							</div>
+						</div>
+						<!-- /article - image -->
+
+						<!-- /BLOG ARTICLE LIST -->
+					</div>
+
+
+
+				</div>
+			</section>
+			<!-- /CONTENT -->
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,160 @@
+{% extends 'base_sisacademico.html' %}
+{% load staticfiles  %}
+
+{% block extra_staticfiles %}
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="{% static 'assets/plugins/jquery-2.1.1.min.js' %}"></script>
+{% endblock extra_staticfiles %}
+
+
+{% block content %}
+<style>
+.celda_nota{
+	text-align: center
+}
+</style>
+<h1> {{clase.nombre}} - <small> {{periodo.nombre_parcial}} </small> </h1>
+<hr>
+<div class = "row">
+	<div class = "col-md-12">
+		<table class = "table table-striped">
+			<thead>
+			<tr>
+				<th> # </th>
+				<th>Alumno</th>
+				<th>Tareas</th>
+				<th>Actividades Individuales</th>
+				<th>Actividades Grupales</th>
+				<th>Lecciones</th>
+				<th>Pruebas</th>
+				<th><i>Promedio</i></th>
+				<th>Editar</th>
+			</tr>
+			</thead>
+			<tbody>
+				{% for fila in lista_datos %}
+					<tr>
+						<td> {{forloop.counter}} </td>
+						<td>{{fila.alumno.nombre_completo|upper}}</td>
+						<td class = "celda_nota nota_tareas" data-nota = "{{fila.tareas}}" >{{fila.tareas}}</td>
+						<td class = "celda_nota nota_actividades_i" data-nota = "{{fila.actividades_individuales}}" >{{fila.actividades_individuales}}</td>
+						<td class = "celda_nota nota_actividades_g" data-nota = "{{fila.actividades_grupales}}" >{{fila.actividades_grupales}}</td>
+						<td class = "celda_nota nota_lecciones" data-nota = "{{fila.lecciones}}">{{fila.lecciones}}</td>
+						<td class = "celda_nota nota_pruebas" data-nota = "{{fila.pruebas}}" >{{fila.pruebas}}</td>
+						<td class = "celda_nota promedio" data-nota = "{{fila.promedio}}" >
+						<i>{{fila.promedio}}</i></td>
+						<td>
+							<span class = "alumno_id hidden">{{fila.alumno.cedula}}</span>
+							<span class = "periodo_id hidden">{{periodo.id}}</span>
+							<span class = "clase_id hidden">{{clase.id}}</span>
+							<button class = "btn btn-info btn_editar" title = "Editar Notas" 
+							data-toggle="modal"	data-target="#modalFormNotas"> 
+							<i class = "fa fa-edit"></i>
+							</button>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Modal Form Notas -->
+<div class = "modal fade" id="modalFormNotas" tabindex="-1" role="dialog" 
+aria-labelledby="Formulario Notas" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Cambiar Notas</h4>
+      </div>
+      <div class="modal-body">
+      	<div class = "col-md-offset-1">
+	        <form id = "form_notas" class="form-horizontal" action = "{% url 'sisacademico:editar_notas' %}" method = "post">
+			{% csrf_token %}
+			{{form_editar_notas.non_field_errors}}
+			<fieldset>
+			<div class = "form-group">
+				<div class = "col-md-7">
+				{{form_editar_notas.tareas.errors}}
+				<label class = "control-label" for="texto"> Tareas </label>
+				</div>
+				<div class = "col-md-5">
+				{{form_editar_notas.tareas}}
+				</div>
+			</div>
+			<div class = "form-group">
+				<div class = "col-md-7">
+				{{form_editar_notas.lecciones.errors}}
+				<label class = "control-label" for="texto"> Lecciones </label>
+				</div>
+				<div class = "col-md-5">
+				{{form_editar_notas.lecciones}}
+				</div>
+			</div>
+			<div class = "form-group">
+				<div class = "col-md-7">
+				{{form_editar_notas.pruebas.errors}}
+				<label class = "control-label" for="texto"> Pruebas </label>
+				</div>
+				<div class = "col-md-5">
+				{{form_editar_notas.pruebas}}
+				</div>
+			</div>
+			<div class = "form-group">
+				<div class = "col-md-7">
+				{{form_editar_notas.actividades_individuales.errors}}
+				<label class = "control-label" for="texto"> Actividades Individuales</label>
+				</div>
+				<div class = "col-md-5">
+				{{form_editar_notas.actividades_individuales}}
+				</div>
+			</div>
+			<div class = "form-group">
+				<div class = "col-md-7">
+				{{form_editar_notas.actividades_grupales.errors}}
+				<label class = "control-label" for="texto"> Actividades Grupales</label>
+				</div>
+				<div class = "col-md-5">
+				{{form_editar_notas.actividades_grupales}}
+				</div>
+			</div>
+			<div class = "hidden">
+			{{form_editar_notas.clase}}
+			{{form_editar_notas.alumno}}
+			{{form_editar_notas.periodo}}
+			</div>
+			<input class = "btn pull-right" type = "submit" value ="Guardar"/>
+			</fieldset>
+			</form>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block extra_javascript %}
+<script>
+$(".btn_editar").on("click", function(){
+	var clase_id = $(this).parent().find(".clase_id").text();
+	var periodo_id = $(this).parent().find(".periodo_id").text();
+	var alumno_id = $(this).parent().find(".alumno_id").text();
+	var nota_tareas = $(this).parent().parent().find(".nota_tareas").data("nota");
+	var nota_act_ind = $(this).parent().parent().find(".nota_actividades_i").data("nota");
+	var nota_act_gru = $(this).parent().parent().find(".nota_actividades_g").data("nota");
+	var nota_lecciones = $(this).parent().parent().find(".nota_lecciones").data("nota");
+	var nota_pruebas = $(this).parent().parent().find(".nota_pruebas").data("nota");
+	//console.log("clase: " + clase_id + " periodo: " + periodo_id + " alumno: " + alumno_id);
+	console.log(nota_act_gru)
+	$("#form_tareas").val(nota_tareas);
+	$("#form_act_ind").val(nota_act_ind);
+	$("#form_act_gru").val(nota_act_gru);
+	$("#form_lecciones").val(nota_lecciones);
+	$("#form_pruebas").val(nota_pruebas);
+	$("#form_clase").val(clase_id);
+	$("#form_periodo").val(periodo_id);
+	$("#form_alumno").val(alumno_id);
+});
+</script>
+{% endblock extra_javascript %}
