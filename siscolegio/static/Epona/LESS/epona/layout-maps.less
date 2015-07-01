@@ -1,0 +1,31 @@
+/** ********************************************** **
+	@Author			Dorin Grigoras
+	@Website		www.stepofweb.com
+	@Last Update	11:55 AM Sunday, May 04, 2014
+
+	Maps
+ *************************************************** **/
+/* vectorial map */
+#world-map {
+	background-color:@vectormap-background-color;
+	padding:0 3px 3px 0;
+}
+
+.jvectormap-zoomin, .jvectormap-zoomout {
+	background: @vectormap-zoom-btn-color;
+	width: 20px; height: 20px;
+	padding: 4px 0;
+
+	-webkit-border-radius: 50%;
+	   -moz-border-radius: 50%;
+			border-radius: 50%;
+}
+
+.jvectormap-zoomout {
+	top: 40px;
+}
+
+/* gmaps.js */
+#map, #panorama {
+	height: @jgmap-height;
+}

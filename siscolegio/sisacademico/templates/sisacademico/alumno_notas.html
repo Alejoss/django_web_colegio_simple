@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>Colegio Amelia Gallegos</title>
+<link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+</head>
+
+<style>
+h1 {
+	text-align: center
+}
+</style>
+
+<body>
+	<div class = "col-md-10">
+		<h1> Colegio Amelia Gallegos </h1>
+		<h3> {{alumno.nombre_completo}} - <small>{{periodo.nombre_parcial}} / {{periodo.nombre_quimestre}} </small> </h2>
+	</div>
+	<div class = "row">
+	<div class = "col-md-12">
+		<table class ="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th>Clase</th>
+				<th>Tareas</th>
+				<th>Actividades Individuales</th>
+				<th>Actividades Grupales</th>
+				<th>Lecciones</th>
+				<th>Pruebas</th>
+				<th><i>Promedio</i></th>
+			</tr>
+			</thead>
+			<tbody>
+				{% for nota in notas %}
+					<tr>
+						<td>{{nota.clase.nombre}}</td>
+						<td class = "nota_tareas" data-nota = "{{nota.tareas}}" >{{nota.tareas}}</td>
+						<td class = "nota_actividades_i" data-nota = "{{nota.act_ind}}" >{{nota.act_ind}}</td>
+						<td class = "nota_actividades_g" data-nota = "{{nota.act_gru}}" >{{nota.act_gru}}</td>
+						<td class = "nota_lecciones" data-nota = "{{nota.lecciones}}">{{nota.lecciones}}</td>
+						<td class = "nota_pruebas" data-nota = "{{nota.pruebas}}" >{{nota.pruebas}}</td>
+						<td class = "promedio" data-nota = "{{nota.promedio}}" >
+						<i>{{nota.promedio}}</i></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	</div>
+</body>
+</html>

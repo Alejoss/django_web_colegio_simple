@@ -1,0 +1,57 @@
+/** ********************************************** **
+	@Author			Dorin Grigoras
+	@Website		www.stepofweb.com
+	@Last Update	11:55 AM Sunday, May 04, 2014
+
+	Boxed Layout
+ **************************************************************** **/
+	body.boxed {
+		background-color:@boxed-background-color;
+	}
+	body.boxed #wrapper {
+		position:relative;
+	}
+	body.boxed #wrapper,
+	body.boxed #topBar, /* IE BUG */
+	body.boxed footer {
+		margin:auto;
+		max-width:1170px;
+	}
+	body.boxed #wrapper {
+		background-color:#fff;
+		margin:30px auto !important;
+		overflow:hidden;
+		box-shadow:rgba(0,0,0,0.3) 0 0 6px;
+
+		-webkit-border-radius: 6px;
+		   -moz-border-radius: 6px;
+				border-radius: 6px;
+	}
+	body.boxed #topBar {
+		border-top:#333 4px solid;
+
+		-webkit-border-radius: 6px;
+		   -moz-border-radius: 6px;
+				border-radius: 6px;	
+	}
+	body.boxed #header.sticky.affix {
+		margin-top:-30px; /* wrapper margin */
+	}
+
+	body.boxed #header.sticky.affix {
+		margin-top:0 !important;
+	}
+
+	body.boxed #header.sticky.affix #topNav.translucent {
+		margin-top:30px !important;
+	}
+
+@media only screen and (max-width: 768px) {
+	body.boxed #topBar,
+	body.boxed #wrapper {
+		margin:0 !important;
+		-webkit-border-radius: 0;
+		   -moz-border-radius: 0;
+				border-radius: 0;
+	}
+}

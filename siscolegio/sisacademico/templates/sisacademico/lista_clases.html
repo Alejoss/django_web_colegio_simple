@@ -1,0 +1,13 @@
+{% extends 'base_sisacademico.html' %}
+
+{% block content %}
+<div class = "col-md-8 col-md-offset-2">
+<h1> Clases </h1>
+	<div class="list-group">
+	{% for clase in clases_profesor %}
+	  <a href="{% url 'sisacademico:clase_periodos' clase.id %}" class="list-group-item">
+	  {{clase.nombre}} - {{clase.nivel}}</a>
+	{% endfor %}
+	</div>
+</div>
+{% endblock content %}

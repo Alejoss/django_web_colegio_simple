@@ -1,0 +1,206 @@
+/** ********************************************** **
+	@Author			Dorin Grigoras
+	@Website		www.stepofweb.com
+	@Last Update	11:55 AM Sunday, May 04, 2014
+
+	Slider
+ **************************************************************** **/
+div.slider {
+	background-color:@slider-background-color;
+	position:relative;
+	z-index:1;
+
+	-webkit-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);
+	   -moz-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);
+		 -o-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);
+			box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);
+}
+
+div.slider a.btn {
+	color:#fff;
+}
+div.slider a.btn-default {
+	color:#000;
+}
+.tp-bullets {
+	bottom:10px !important;
+}
+
+	.tp-bannertimer {
+		background:#777 !important;
+		background:rgba(0,0,0,0.1) !important;
+		height:4px !important;
+	  }
+
+
+	.tparrows.round:before {
+		font-family: 'revicons';
+		color: #fff;
+		font-style: normal;
+		font-weight: normal;
+		speak: none;
+		display: inline-block;
+		text-decoration: inherit;
+		margin-right: 0;
+		margin-top: 9px;
+		text-align: center;
+		width: 40px;
+		font-size: 20px;
+	}
+	.tparrows.round {
+
+		cursor: pointer;
+
+		background: rgba(0, 0, 0, 0.5) !important;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		width: 40px !important;
+		height: 40px !important;
+
+	}
+	.tparrows.round:hover {
+		color: #fff;
+	}
+	.tp-leftarrow:before {
+		content: '\e824';
+	}
+	.tp-rightarrow:before {
+		content: '\e825';
+	}
+	.tparrows.tp-rightarrow:before {
+		margin-left: 1px;
+	}
+	.tparrows.round:hover {
+		background: rgba(0, 0, 0, 1) !important;
+	}
+
+/* CUSTOM TEXT */
+.tp-caption.default_white {
+	font-size: 18px;
+	line-height: 21px;
+	font-weight: 300;
+	color: #fff;
+	text-decoration: none;
+	background-color: transparent;
+	padding: 0px;
+}
+.tp-caption.default_black {
+	font-size: 18px;
+	line-height: 21px;
+	font-weight: 300;
+	color: #000;
+	text-decoration: none;
+	background-color: transparent;
+	padding: 0px;
+}
+.tp-caption.block_black {
+	background-color:#000;
+}
+.tp-caption.block_white {
+	background-color:#fff;
+}
+.tp-caption.block_white,
+.tp-caption.block_styleColor,
+.tp-caption.block_black {
+	white-space: nowrap;
+	line-height: 34px;
+	border-width: 0px;
+	margin: 0px;
+	padding: 1px 10px;
+	letter-spacing: 0px;
+	font-size: 22px;
+	color:#fff;
+}
+.tp-caption.block_huge {
+	font-size:130px;
+	line-height:130px;
+}
+.tp-caption.block_huge.text-white {
+	color:#fff;
+}
+.tp-caption.block_huge.text-black {
+	color:#000;
+}
+
+
+
+/*
+	@Flex Slider
+*/
+.flexslider.flexFull .flex-direction-nav a, 
+.flexslider.flexContent .flex-direction-nav a {
+	display: block;
+	width: 45px;
+	height: 45px;
+	margin: -22px 0 0 0;
+	background: #333333;
+	position: absolute;
+	top: 50%;
+	z-index: 10;
+	cursor: pointer;
+	font-size:0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: transparent;
+	opacity: 1;
+	-webkit-transition: all .3s ease;
+}
+.flexslider.flexFull .flex-direction-nav a.flex-next:after, 
+.flexslider.flexContent .flex-direction-nav a.flex-next:after {
+	content: "\e080";
+}
+.flexslider.flexFull .flex-direction-nav a.flex-prev:after, 
+.flexslider.flexContent .flex-direction-nav a.flex-prev:after {
+	content: "\e079";
+}
+
+.flexslider.flexFull .flex-direction-nav a.flex-prev:after, 
+.flexslider.flexFull .flex-direction-nav a.flex-next:after, 
+.flexslider.flexContent .flex-direction-nav a.flex-prev:after, 
+.flexslider.flexContent .flex-direction-nav a.flex-next:after {
+	font: 12px/1em 'Glyphicons Halflings';
+	left: 16px;
+	top: 16px;
+	font-style: normal;
+	position: absolute;
+	display: inline-block;
+	color: #fff;
+}
+
+
+/*
+	@Layer Slider
+*/
+div.layerslider div.ls-slide>div.ls-l.fullvideo {
+	width:100% !important;
+	height:100% !important;
+}
+
+
+/*
+	@OWL Slider
+*/
+#bar {
+  width: 0%;
+  max-width: 100%;
+  height: 4px;
+  background: #999;
+}
+#progressBar{
+  width: 100%;
+  background: rgba(0,0,0,0.05);
+}
+div.owl-carousel>div {
+	position:relative;
+}
+div.owl-carousel .caption {
+	position:absolute;
+	left:0; right:0; bottom:0;
+	color:#333; font-size:20px;
+	background:rgba(0,0,0,0.2);
+	text-shadow:#fff 1px 1px 1px;
+	text-align:center;
+	padding:3px; margin-right:1px;
+	z-index:10;
+}

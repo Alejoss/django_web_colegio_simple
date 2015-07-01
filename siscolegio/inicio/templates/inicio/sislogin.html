@@ -1,0 +1,45 @@
+{% extends 'base_inicio.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class = "row">
+	<div>
+		<hr>
+	</div>
+	<div class = "col-md-4">
+		<button id="alumnos" class = "btn btn-lg btn-success pull-right" onclick="location.href='/sisacademico/alumnos/'" >Alumnos</button>
+	</div>
+	<div class = "col-md-2">
+		<button id="profesores" class = "btn btn-lg btn-success pull-left">Profesores</button>
+	</div>
+	<div class = "col-md-6">
+		<button id="secretaria" class = "btn btn-lg btn-success pull-left" onclick="location.href='/admin'">Secretaria General</button>
+	</div>
+	<div class ="col-md-6 col-md-offset-5">
+		<div class "row">
+			<form id = "form_profesores" class = "col-md-12 hidden" action = "{% url 'sisacademico:authcheck' %}" method = "post">
+				{% csrf_token %}
+				<label for = "username"> USUARIO: </label>
+				<input type = "text" name = "username" value = "" id = "username">
+				<label for = "password"> PASSWORD: </label>
+				<input type = "password" name = "password" value ="" id = "password">
+				<input type = "submit" value = "Entrar"/>
+			</form>
+		</div>
+	</div>
+	<div>
+		<hr>
+		<br>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block extra_javascript %}
+<script>
+	$("#profesores").on("click", function(){
+		$("#secretaria").addClass("hidden");
+		$("#form_profesores").removeClass("hidden");
+	});
+</script>
+{% endblock extra_javascript %}

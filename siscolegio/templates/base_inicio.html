@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<title>Colegio Amelia Gallegos</title>
+		<meta name="keywords" content="HTML5,CSS3,Template" />
+		<meta name="description" content="" />
+		<meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+		<!-- mobile settings -->
+		<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="{% static 'assets/images/demo/favicon.ico' %}" />
+
+		<!-- WEB FONTS -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+
+		<!-- CORE CSS -->
+		<link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/font-awesome.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/sky-forms.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/weather-icons.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/line-icons.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/owl-carousel/owl.pack.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/plugins/magnific-popup/magnific-popup.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/animate.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/flexslider.css' %}" rel="stylesheet" type="text/css" />
+
+		<!-- REVOLUTION SLIDER -->
+		<link href="{% static 'assets/css/revolution-slider.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/layerslider.css' %}" rel="stylesheet" type="text/css" />
+
+		<!-- THEME CSS -->
+		<link href="{% static 'assets/css/essentials.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/layout.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/header-4.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/footer-default.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'assets/css/color_scheme/darkgreen.css' %}" rel="stylesheet" type="text/css" id="color_scheme" />
+
+		<!-- Morenizr -->
+		<script type="text/javascript" src="{% static 'assets/plugins/modernizr.min.js' %}"></script>
+
+		<!--[if lte IE 8]>
+			<script src="{% static 'assets/plugins/respond.js' %}"></script>
+		<![endif]-->
+	</head>
+	
+	<!-- 
+		Available body classes: 
+			smoothscroll			= enable chrome browser smooth scroll
+			grey 					= grey content background
+			boxed 					= boxed style
+			pattern1 ... pattern11 	= background pattern
+
+		Background Image - add to body: 
+			data-background="assets/images/boxed_background/1.jpg"
+
+		Examples: 
+			<body class="smoothscroll grey boxed pattern3">
+			<body class="smoothscroll boxed" data-background="assets/images/boxed_background/1.jpg">
+	-->
+	<body class="smoothscroll">
+
+		<div id="wrapper">
+
+			<div id="header"> <!-- class="sticky" for sticky menu -->
+				
+				<br>
+				<!-- Top Nav -->
+				<header id="topNav">
+					<div class="container">
+
+						<!-- Logo -->
+						<a class="logo" href="{% url 'inicio:inicio' %}">
+							<img src="{% static 'assets/images/logo.png' %}" height="50" alt="" />
+						</a>
+
+						<!-- Mobile Menu Button -->
+						<button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+							<i class="fa fa-bars"></i>
+						</button>
+										<!-- Top Bar -->
+					<!-- /Top Bar -->
+						<!-- Top Nav -->
+						<div class="navbar-collapse nav-main-collapse collapse">
+							<nav class="nav-main">
+
+								<!--
+									NOTE
+									
+									For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
+									Direct Link Example: 
+
+									<li>
+										<a href="#">HOME</a>
+									</li>
+								-->
+								<ul id="topMain" class="nav nav-pills nav-main">
+									<li class="mega-menu dropdown">
+										<a href="{% url 'inicio:inicio' %}">
+											INICIO
+										</a>
+									</li>
+									<li class="dropdown">
+										<a class="dropdown-toggle"> COLEGIO </a>
+										<ul class="dropdown-menu">
+											<li><a href="{% url 'inicio:colegio' %}">Historia</a></li>
+											<li class="divider"></li>
+											<li><a href="{% url 'inicio:colegio' %}">Misión</a></li>
+											<li><a href="{% url 'inicio:colegio' %}">Visión</a></li>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="{% url 'inicio:docentes' %}"> DOCENTES </a>
+									</li>
+									<li class="dropdown">
+										<a href="{% url 'inicio:estudiantes' %}"> ESTUDIANTES </a>
+									</li>
+									<li class="dropdown">
+										<a href="{% url 'inicio:blog' %}"> BLOG <span> noticias </span></a>
+									</li>
+									<li class="dropdown mega-menu">
+										<a href="{% url 'inicio:sislogin' %}"> SISTEMA ACADÉMICO <span> ingreso </span></a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<!-- /Top Nav -->
+					</div><!-- /.container -->
+				</header>
+				<!-- /Top Nav -->
+			</div>
+
+			{% block content %}
+
+			{% endblock content %}
+
+			<!-- FOOTER -->
+			<footer id="footer">
+				<div class="copyright">
+					<div class="container text-center fsize12">
+						Contacto: Número de contacto  *  Dirección: Dirección del Colegio
+					</div>
+				</div>
+			</footer>
+			<!-- /FOOTER -->
+
+			<a href="#" id="toTop"></a>
+
+		</div><!-- /#wrapper -->
+
+		<!-- JAVASCRIPT FILES -->
+		<script type="text/javascript" src="{% static 'assets/plugins/jquery-2.1.1.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/plugins/jquery.isotope.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/plugins/masonry.js' %}"></script>
+
+		<script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/plugins/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/plugins/owl-carousel/owl.carousel.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/plugins/knob/js/jquery.knob.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/js/scripts.js' %}"></script>
+		{% block extra_javascript %}
+		{% endblock extra_javascript %}
+	</body>
+</html>

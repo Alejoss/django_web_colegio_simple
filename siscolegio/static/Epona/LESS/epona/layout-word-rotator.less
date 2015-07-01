@@ -1,0 +1,51 @@
+/** ********************************************** **
+	@Author			Dorin Grigoras
+	@Website		www.stepofweb.com
+	@Last Update	11:55 AM Sunday, May 04, 2014
+
+	Word Rotator
+ **************************************************************** **/
+.word-rotator {
+	visibility: hidden;
+	width: 100px;
+	height: 0;
+	margin-bottom:-11px;
+	display: inline-block;
+	overflow: hidden;
+	text-align: left;
+	position: relative;
+}
+	h2 .word-rotator {
+		bottom:2px;
+		height: 42px !important;
+	}
+	h3 .word-rotator {
+		bottom:9px;
+		height: 24px !important;
+	}
+	h4 .word-rotator {
+		bottom:5px;
+		height: 27px !important;
+	}
+	h5 .word-rotator {
+		bottom:7px;
+		height: 18px !important;
+	}
+	p .word-rotator {
+		bottom:5px;
+	}
+	p.lead .word-rotator {
+		bottom:4px;
+	}
+.word-rotator.active {
+	visibility: visible;
+	width: auto;
+}
+.word-rotator .items {
+	position: relative;
+	width: 100%;
+}
+.word-rotator .items span {
+	display:block;
+	margin-bottom:0;
+}

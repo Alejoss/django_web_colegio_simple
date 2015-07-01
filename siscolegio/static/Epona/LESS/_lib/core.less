@@ -1,0 +1,33 @@
+/** ********************************************** **
+	@Author			Dorin Grigoras
+	@Website		www.stepofweb.com
+	@Last Update	Tuesday, June 24, 2014
+ **************************************************************** **/
+
+/*
+	@Rounded Corners
+*/
+.roundedCorners(@radius: @default-radius) {
+	-webkit-border-radius: @radius;
+	   -moz-border-radius: @radius;
+			border-radius: @radius;
+}
+
+/*
+	@Box Shadow
+*/
+.boxShadow(@color: #333333, @hor: 13px, @vert: 2px, @blur: 5px) {
+	-webkit-box-shadow: @color @hor @vert @blur;
+	   -moz-box-shadow: @color @hor @vert @blur;
+			box-shadow: @color @hor @vert @blur;
+}
+
+/*
+	@Transition
+*/
+.transition(@range: all, @time: 1s, @ease: ease-in-out) {
+	-webkit-transition: @range @time @ease;
+	   -moz-transition: @range @time @ease;
+		 -o-transition: @range @time @ease;
+			transition: @range @time @ease;
+}

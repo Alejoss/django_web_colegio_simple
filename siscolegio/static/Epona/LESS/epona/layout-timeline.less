@@ -1,0 +1,228 @@
+/** ********************************************** **
+	@Author			Dorin Grigoras
+	@Website		www.stepofweb.com
+	@Last Update	11:55 AM Sunday, May 04, 2014
+
+	Timeline
+ **************************************************************** **/
+.timeline {
+	position:relative;
+	margin-bottom:60px;
+}
+
+
+/* left */
+.timeline .timeline-left .item {
+	background-color: rgba(0,0,0,0.06);
+	border-right:rgba(0,0,0,0.06) 3px solid;
+	padding:15px;
+	margin-left:50px;
+	margin-bottom:30px;
+	position:relative;
+}
+.timeline .timeline-left .item:after {
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	width: 0; height: 0;
+	position: absolute;
+	border-right-color: rgba(0,0,0,0.06);
+	border-width: 10px;
+	top: 10px; left:-20px;
+}
+.timeline .timeline-left .item:before {
+	right: 100%;
+	border: #ddd 5px solid;
+	content: " ";
+	position: absolute;
+	top: 10px; left:-50px;
+	background-color:#333;
+	width:22px; height:22px;
+	z-index:1;
+
+}
+.timeline-left:after {
+	background: #ddd;
+	z-index:0;
+
+	content: "";
+	display: block;
+	left: 10px; top:0; bottom:0;
+	position: absolute;
+	width: 4px;
+	opacity: 0.35;
+}
+.timeline  .timeline-left .timeline-centered-title {
+	float:right;
+	content:' ';
+	clear:both;
+	font-size:19px;
+}
+
+/* right */
+.timeline .timeline-right .item {
+	background-color: rgba(0,0,0,0.06);
+	border-left:rgba(0,0,0,0.06) 3px solid;
+	padding:15px;
+	margin-right:50px;
+	margin-bottom:30px;
+	position:relative;
+}
+.timeline .timeline-right .item:after {
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	width: 0; height: 0;
+	position: absolute;
+	border-left-color: rgba(0,0,0,0.06);
+	border-width: 10px;
+	top: 10px; right:-20px;
+}
+.timeline .timeline-right .item:before {
+	right: 100%;
+	border: #ddd 5px solid;
+	content: " ";
+	position: absolute;
+	top: 10px; right:-50px;
+	background-color:#333;
+	width:22px; height:22px;
+	z-index:1;
+
+}
+.timeline-right:after {
+	background: #ddd;
+	z-index:0;
+
+	content: "";
+	display: block;
+	right: 10px; top:0; bottom:0;
+	position: absolute;
+	width: 4px;
+	opacity: 0.35;
+}
+.timeline .timeline-right .item h4 {
+	text-align:right;
+}
+.timeline .timeline-right .timeline-centered-title {
+	float:left;
+	content:' ';
+	clear:both;
+	font-size:19px;
+}
+
+/** centered **/
+.timeline .timeline-centered .item {
+	background-color: rgba(0,0,0,0.06);
+	padding:15px;
+	margin-bottom:30px;
+	position:relative;
+	margin-top:100px;
+}
+.timeline .timeline-centered .item:first-child {
+	margin-top:0;
+}
+.timeline-centered:after {
+	background: #ddd;
+	z-index:0;
+
+	content: "";
+	display: block;
+	top:0; bottom:0;
+	position: absolute;
+	width: 4px;
+	opacity: 0.35;
+
+	left: 50%;
+	margin-left: 0;
+	height:100%;
+}
+.timeline-centered .item {
+	max-width:46%;
+
+}
+.timeline .timeline-centered .item.pull-right:after {
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	width: 0; height: 0;
+	position: absolute;
+	border-right-color: rgba(0,0,0,0.06);
+	border-width: 10px;
+	top: 10px; left:-20px;
+}
+.timeline .timeline-centered .item.pull-right:before {
+	right: 100%;
+	border: #ddd 5px solid;
+	content: " ";
+	position: absolute;
+	top: 10px; left:-43px;
+	background-color:#333;
+	width:22px; height:22px;
+	z-index:1;
+
+}
+.timeline .timeline-centered .item.pull-left:after {
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	width: 0; height: 0;
+	position: absolute;
+	border-left-color: rgba(0,0,0,0.06);
+	border-width: 10px;
+	top: 10px; right:-20px;
+}
+.timeline .timeline-centered .item.pull-left:before {
+	right: 100%;
+	border: #ddd 5px solid;
+	content: " ";
+	position: absolute;
+	top: 10px; right:-46px;
+	background-color:#333;
+	width:22px; height:22px;
+	z-index:1;
+
+}
+.timeline .timeline-centered .item.pull-left h4 {
+	text-align:right;
+}
+.timeline .timeline-centered .item.pull-right .timeline-centered-title {
+	float:right;
+	content:' ';
+	clear:both;
+	font-size:19px;
+}
+.timeline .timeline-centered .item.pull-left .timeline-centered-title {
+	float:left;
+	content:' ';
+	clear:both;
+	font-size:19px;
+}
+
+.timeline  .timeline-centered p {
+	content:'';
+	clear:both;	
+}
+
+@media only screen and (max-width: 768px) {
+	.timeline-centered .item {
+		width:100% !important;
+		max-width:100% !important;
+		margin:0 0 30px 0 !important;
+	}
+	.timeline .timeline-centered .item.pull-left,
+	.timeline .timeline-centered .item.pull-right {
+		float:none !important;
+		display:block !important;
+		position:relative !important;
+	}
+	.timeline .timeline-centered .item.pull-left h4 {
+		text-align:left;
+	}
+	.timeline .timeline-centered .item.pull-right:after,
+	.timeline .timeline-centered .item.pull-right:before,
+	.timeline .timeline-centered .item.pull-left:after,
+	.timeline .timeline-centered .item.pull-left:before,
+	.timeline-centered:after {
+		display:none;
+	}
+}
