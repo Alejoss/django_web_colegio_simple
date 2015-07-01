@@ -31,37 +31,49 @@ def obtener_editar_valor_nota(alumno, clase, periodo, tipo, valor=None):
 		nota_obj.valor = valor
 		nota_obj.save()
 	else:
-		if not nota_obj.valor or creado:
-			return 1
-		else:
-			return nota_obj.valor
+		return nota_obj
 
 
 def calcular_promedio_notas(notas):
-	# Recibe diccionario con notas
-	notas_promedio = []
-	for value in notas.itervalues():
-		if int(value) > 0:
-			notas_promedio.append(int(value))
-	if len(notas_promedio) > 0:
-		promedio = sum(notas_promedio)/float(len(notas_promedio))
+	# Recibe diccionario con notas_objects.
+	# Calcula el promedio_parcial y el promedio_final. El promedio parcial toma en cuenta notas no publicadas
+	notas_promedio_parcial = []
+	notas_promedio_final = []
+
+	for nota in notas.itervalues():
+		if nota.valor > 0:
+			if not nota.publicada:
+				notas_promedio_parcial.append(int(nota.valor))
+			else:
+				notas_promedio_parcial.append(int(nota.valor))
+				notas_promedio_final.append(int(nota.valor))
+
+	promedio_parcial = 0
+	if len(notas_promedio_parcial) > 0:
+		promedio_parcial = sum(notas_promedio_parcial)/float(len(notas_promedio_parcial))
+		promedio_parcial = "%.2f" % promedio_parcial
 	else:
-		promedio = 0
-	return "%.2f" % promedio
+		promedio_parcial = 0
+
+	promedio_final = 0
+	if len(notas_promedio_final) > 0:
+		promedio_final = sum(notas_promedio_final)/float(len(notas_promedio_final))
+		promedio_final = "%.2f" % promedio_final
+	else:
+		promedio_final = 0
+
+	return promedio_parcial, promedio_final
 
 
 def obtener_fila_alumno_notas(alumno, clase, periodo):
 	# Para la vista del profesor
 	notas = {}
-	#notas_obj = Nota.objects.filter(alumno=alumno, clase=clase, periodo=periodo)
-	#for nota in notas_obj:
-		#notas[nota.tipo] = nota.valor
 	notas['tareas'] = obtener_editar_valor_nota(alumno, clase, periodo, "tareas")
 	notas['actividades_individuales'] = obtener_editar_valor_nota(alumno, clase, periodo, "act_ind")
 	notas['actividades_grupales'] = obtener_editar_valor_nota(alumno, clase, periodo, "act_gru")
 	notas['lecciones'] = obtener_editar_valor_nota(alumno, clase, periodo, "lecciones")
 	notas['pruebas'] = obtener_editar_valor_nota(alumno, clase, periodo, "pruebas")
-	notas['promedio'] = calcular_promedio_notas(notas)
+	notas['promedios'] = calcular_promedio_notas(notas)	
 	notas['alumno'] = alumno
 
 	return notas
@@ -102,7 +114,7 @@ def obtener_notas_alumno(alumno, clases, periodo):
 	for clase in clases:
 		notas_clase = {}
 		notas_clase['clase'] = clase
-		notas_obj = Nota.objects.filter(alumno=alumno, clase=clase, periodo=periodo)
+		notas_obj = Nota.objects.filter(alumno=alumno, clase=clase, periodo=periodo, publicada=True)
 		for nota in notas_obj:
 			if nota.valor:
 				notas_clase[nota.tipo] = nota.valor

@@ -2,12 +2,13 @@
 from django.contrib import auth
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 from utils import obtener_perfil_profesor, obtener_clases_profesor, obtener_alumnos_clase,\
                 obtener_fila_alumno_notas, obtener_editar_valor_nota, obtener_clases_nivel, \
                 obtener_notas_alumno
-from models import Clase, Periodo, Perfil_Profesor, Alumno, Nivel
-from forms import FormPerfilProfesor, FormEditarNotas, FormBuscarAlumno
+from models import Clase, Periodo, Perfil_Profesor, Alumno, Nivel, Matricula, Nota
+from forms import FormPerfilProfesor, FormEditarNotas, FormBuscarAlumno, FormMatricularGrupo
 
 
 def authcheck(request):
@@ -121,11 +122,90 @@ def alumnos(request):
 def reporte_alumno_notas(request):
 	template = "sisacademico/alumno_notas.html"
 
-	nivel = get_object_or_404(Nivel, pk=request.GET.get("nivel", ""))
 	alumno = get_object_or_404(Alumno, pk=request.GET.get("cedula", " "))
+	nivel = get_object_or_404(Nivel, pk=request.GET.get("nivel", ""))
 	periodo = get_object_or_404(Periodo, pk=request.GET.get("periodo", ""))
 	clases = obtener_clases_nivel(nivel)
 	notas = obtener_notas_alumno(alumno, clases, periodo)
 	context = {'nivel': nivel, 'alumno': alumno, 'periodo': periodo, 'clases': clases, 'notas': notas}
 
 	return render(request, template, context)
+
+
+def matricular_grupo(request):
+	template = "sisacademico/matricular_grupo.html"
+
+	cedulas = request.session['cedulas']
+	alumnos = []
+
+	if request.method == "POST":
+		form = FormMatricularGrupo(request.POST)
+
+		if form.is_valid():
+			ano_lectivo = form.cleaned_data["ano_lectivo"]
+			nivel_id = form.cleaned_data["nivel"]
+			
+			nivel_obj = Nivel.objects.get(id=nivel_id)
+			matriculas_creadas = []
+
+			for c in cedulas:
+				try:
+					alumnos.append(Alumno.objects.get(cedula=c))
+				except:
+					pass
+
+			for a in alumnos:
+				if Matricula.objects.filter(nivel=nivel_obj, ano_lectivo=ano_lectivo, alumno=a).exists():
+					print "matricula de alumno %s ya existe" % (a.nombre)
+				else:
+					nueva_matricula = Matricula(nivel=nivel_obj, ano_lectivo=ano_lectivo, alumno=a)
+					nueva_matricula.save()
+					matriculas_creadas.append(nueva_matricula)
+
+			template = "sisacademico/matriculas_creadas.html"
+			context = {'matriculas_creadas': matriculas_creadas}
+
+			return render(request, template, context)
+		
+		else:
+
+			return HttpResponse("no valid")
+
+	else:
+		form = FormMatricularGrupo()
+
+	for c in cedulas:
+		try:
+			alumnos.append(Alumno.objects.get(cedula=c))
+		except:
+			pass
+
+	context = {'alumnos': alumnos, 'form': form}
+
+	return render(request, template, context)
+
+
+def publicar_nota(request):
+
+	nota_id = request.GET.get("id", '')	
+
+	if nota_id:
+		nota = Nota.objects.get(id=nota_id)
+		nota.publicada = True
+		nota.save()
+		return HttpResponse('Nota marcada como publica')
+	else:
+		return HttpResponse(status_code=500)
+
+
+def esconder_nota(request):
+
+	nota_id = request.GET.get("id", '')
+
+	if nota_id:
+		nota = Nota.objects.get(id=nota_id)
+		nota.publicada = False
+		nota.save()
+		return HttpResponse('No marcada como no publica')
+	else:
+		return HttpResponse(status_code=500)

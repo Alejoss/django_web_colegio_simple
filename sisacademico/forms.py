@@ -16,6 +16,7 @@ class FormCambiarPassword(PasswordChangeForm):
 		}
 """
 
+
 class NumberInput(TextInput):
 	input_type = 'number'
 
@@ -31,7 +32,7 @@ class FormBuscarAlumno(forms.Form):
 	for n in niveles_obj:
 		niveles.append((n.id, n.nombre))
 
-	cedula = forms.IntegerField(required=False, widget=NumberInput(attrs={'class': 'form-control'}))
+	cedula = forms.CharField(required=True, max_length=10, widget=TextInput(attrs={'class': 'form-control', 'id': 'cedula'}))
 	periodo = forms.ChoiceField(choices=periodos, widget=Select(attrs={'class': 'form-control'}))
 	nivel = forms.ChoiceField(choices=niveles, widget=Select(attrs={'class': 'form-control', 'name': 'nivel'}))
 
@@ -69,3 +70,14 @@ class FormEditarNotas(forms.Form):
 	    widget=TextInput(attrs={'id': 'form_alumno'}))
 	periodo = forms.CharField(required=False,
 		widget=TextInput(attrs={'id': 'form_periodo'}))
+
+
+class FormMatricularGrupo(forms.Form):
+
+	niveles_obj = Nivel.objects.all()
+	niveles = []
+	for n in niveles_obj:
+		niveles.append((n.id, n.nombre))
+
+	ano_lectivo = forms.IntegerField(required=True, max_value=9999, min_value=0, initial="2015", widget=NumberInput(attrs={'name': 'ano_lectivo'}))
+	nivel = forms.ChoiceField(choices=niveles, widget=Select(attrs={'name': 'nivel'}))

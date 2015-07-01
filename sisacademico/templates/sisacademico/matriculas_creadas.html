@@ -1,0 +1,26 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+
+<h3> Se crearon las siguientes matrículas <br> <small> te redigiremos a la página principal en unos segundos </small> </h3>
+
+{% for m in matriculas_creadas %}
+
+	<p class = "well">
+		Alumno: {{m.alumno.apellido|upper}} {{m.alumno.nombre|upper}} <br>
+		Nivel: {{m.nivel.nombre}} | {{m.ano_lectivo}}
+	</p>
+
+{% endfor %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+
+	window.setTimeout(function(){
+		window.location = "{% url 'admin:index' %}";
+	}, 9000);
+});
+</script>
+
+{% endblock content %}

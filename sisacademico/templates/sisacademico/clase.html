@@ -27,7 +27,8 @@
 				<th>Actividades Grupales</th>
 				<th>Lecciones</th>
 				<th>Pruebas</th>
-				<th><i>Promedio</i></th>
+				<th><i>Promedio Parcial</i></th>
+				<th><i>Promedio Final</i></th>
 				<th>Editar</th>
 			</tr>
 			</thead>
@@ -36,13 +37,61 @@
 					<tr>
 						<td> {{forloop.counter}} </td>
 						<td>{{fila.alumno.nombre_completo|upper}}</td>
-						<td class = "celda_nota nota_tareas" data-nota = "{{fila.tareas}}" >{{fila.tareas}}</td>
-						<td class = "celda_nota nota_actividades_i" data-nota = "{{fila.actividades_individuales}}" >{{fila.actividades_individuales}}</td>
-						<td class = "celda_nota nota_actividades_g" data-nota = "{{fila.actividades_grupales}}" >{{fila.actividades_grupales}}</td>
-						<td class = "celda_nota nota_lecciones" data-nota = "{{fila.lecciones}}">{{fila.lecciones}}</td>
-						<td class = "celda_nota nota_pruebas" data-nota = "{{fila.pruebas}}" >{{fila.pruebas}}</td>
-						<td class = "celda_nota promedio" data-nota = "{{fila.promedio}}" >
-						<i>{{fila.promedio}}</i></td>
+						
+						<td class = "celda_nota nota_tareas" data-nota = "{{fila.tareas}}" data-id = "{{fila.tareas.id}}">
+						{{fila.tareas.valor}}
+						{% if fila.tareas.publicada %}
+						<button class="btn btn-warning esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
+						{% else %}
+						<button class="btn btn-success publicar" title="Publicar"><i class = "fa fa-external-link"></i></button>
+						{% endif %}
+						</td>
+						
+						<td class = "celda_nota nota_actividades_i" data-nota = "{{fila.actividades_individuales}}" 
+						data-id = "{{fila.actividades_individuales.id}}">
+						{{fila.actividades_individuales.valor}}
+						{% if fila.actividades_individuales.publicada %}
+						<button class="btn btn-warning esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
+						{% else %}
+						<button class="btn btn-success publicar" title="Publicar"><i class = "fa fa-external-link"></i></button>
+						{% endif %}
+						</td>
+						
+						<td class = "celda_nota nota_actividades_g" data-nota = "{{fila.actividades_grupales}}" data-id = "{{fila.actividades_grupales.id}}">
+						{{fila.actividades_grupales.valor}}
+						{% if fila.actividades_grupales.publicada %}
+						<button class="btn btn-warning  esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
+						{% else %}
+						<button class="btn btn-success publicar" title="Publicar"><i class = "fa fa-external-link"></i></button>
+						{% endif %}
+						</td>
+						
+						<td class = "celda_nota nota_lecciones" data-nota = "{{fila.lecciones}}" data-id = "{{fila.lecciones.id}}">
+						{{fila.lecciones.valor}}
+						{% if fila.lecciones.publicada %}
+						<button class="btn btn-warning  esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
+						{% else %}
+						<button class="btn btn-success publicar" title="Publicar"><i class = "fa fa-external-link"></i></button>
+						{% endif %}
+						</td>
+						
+						<td class = "celda_nota nota_pruebas" data-nota = "{{fila.pruebas}}" data-id = "{{fila.pruebas.id}}">
+						{{fila.pruebas.valor}}
+						{% if fila.pruebas.publicada %}
+						<button class="btn btn-warning  esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
+						{% else %}
+						<button class="btn btn-success publicar" title="Publicar"><i class = "fa fa-external-link"></i></button> 
+						{% endif %}
+						</td>
+						
+						<td class = "celda_nota promedio" data-nota = "{{fila.promedios.0}}">
+						{{fila.promedios.0}}
+						</td>
+
+						<td class = "celda_nota" data-nota = "{{fila.promedio.1}}">
+						{{fila.promedios.1}}
+						</td>
+
 						<td>
 							<span class = "alumno_id hidden">{{fila.alumno.cedula}}</span>
 							<span class = "periodo_id hidden">{{periodo.id}}</span>
@@ -136,25 +185,52 @@ aria-labelledby="Formulario Notas" aria-hidden="true">
 
 {% block extra_javascript %}
 <script>
-$(".btn_editar").on("click", function(){
-	var clase_id = $(this).parent().find(".clase_id").text();
-	var periodo_id = $(this).parent().find(".periodo_id").text();
-	var alumno_id = $(this).parent().find(".alumno_id").text();
-	var nota_tareas = $(this).parent().parent().find(".nota_tareas").data("nota");
-	var nota_act_ind = $(this).parent().parent().find(".nota_actividades_i").data("nota");
-	var nota_act_gru = $(this).parent().parent().find(".nota_actividades_g").data("nota");
-	var nota_lecciones = $(this).parent().parent().find(".nota_lecciones").data("nota");
-	var nota_pruebas = $(this).parent().parent().find(".nota_pruebas").data("nota");
-	//console.log("clase: " + clase_id + " periodo: " + periodo_id + " alumno: " + alumno_id);
-	console.log(nota_act_gru)
-	$("#form_tareas").val(nota_tareas);
-	$("#form_act_ind").val(nota_act_ind);
-	$("#form_act_gru").val(nota_act_gru);
-	$("#form_lecciones").val(nota_lecciones);
-	$("#form_pruebas").val(nota_pruebas);
-	$("#form_clase").val(clase_id);
-	$("#form_periodo").val(periodo_id);
-	$("#form_alumno").val(alumno_id);
-});
+$(document).ready(function(){
+
+	$(".btn_editar").on("click", function(){
+		var clase_id = $(this).parent().find(".clase_id").text();
+		var periodo_id = $(this).parent().find(".periodo_id").text();
+		var alumno_id = $(this).parent().find(".alumno_id").text();
+		var nota_tareas = $(this).parent().parent().find(".nota_tareas").data("nota");
+		var nota_act_ind = $(this).parent().parent().find(".nota_actividades_i").data("nota");
+		var nota_act_gru = $(this).parent().parent().find(".nota_actividades_g").data("nota");
+		var nota_lecciones = $(this).parent().parent().find(".nota_lecciones").data("nota");
+		var nota_pruebas = $(this).parent().parent().find(".nota_pruebas").data("nota");
+
+		$("#form_tareas").val(nota_tareas);
+		$("#form_act_ind").val(nota_act_ind);
+		$("#form_act_gru").val(nota_act_gru);
+		$("#form_lecciones").val(nota_lecciones);
+		$("#form_pruebas").val(nota_pruebas);
+		$("#form_clase").val(clase_id);
+		$("#form_periodo").val(periodo_id);
+		$("#form_alumno").val(alumno_id);
+	});
+
+	$(".publicar").on("click", function(){
+		var id = $(this).parent().data("id");
+		console.log(id)
+		$.ajax({			
+			url: "{% url 'sisacademico:publicar_nota' %}",
+			data: {'id': id},
+			success: function(){
+				window.location.reload()
+			}
+		});
+	});
+
+	$(".esconder").on("click", function(){
+		var id = $(this).parent().data("id");
+		console.log(id)
+		$.ajax({		
+			url: "{% url 'sisacademico:esconder_nota' %}",
+			data: {'id': id},
+			success: function(){
+				window.location.reload()
+			}
+		});
+	});
+})
+
 </script>
 {% endblock extra_javascript %}

@@ -24,4 +24,8 @@ urlpatterns = patterns('',
 		url(r'^clase/(?P<clase_id>\d+)/(?P<periodo_id>\d+)/$', views.clase_alumnos, name='clase_alumnos'),
 		url(r'^clase/(?P<clase_id>\d+)/$', views.clase_periodos, name='clase_periodos'),
 		url(r'^editar_notas/$', views.editar_notas, name='editar_notas'),
+
+		url(r'^matricular_grupo/$', views.matricular_grupo, name='matricular_grupo'),
+		url(r'^publicar_nota/$', views.publicar_nota, name='publicar_nota'),
+		url(r'^esconder_nota/$', views.esconder_nota, name='esconder_nota')
 	)

@@ -36,7 +36,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'inicio',
     'sisacademico',
-    'south',
 )
 
 # Admin Suit

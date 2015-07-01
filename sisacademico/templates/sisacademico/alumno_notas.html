@@ -37,7 +37,7 @@ h1 {
 			<tbody>
 				{% for nota in notas %}
 					<tr>
-						<td>{{nota.clase.nombre}}</td>
+						<td>{{nota.clase}}</td>
 						<td class = "nota_tareas" data-nota = "{{nota.tareas}}" >{{nota.tareas}}</td>
 						<td class = "nota_actividades_i" data-nota = "{{nota.act_ind}}" >{{nota.act_ind}}</td>
 						<td class = "nota_actividades_g" data-nota = "{{nota.act_gru}}" >{{nota.act_gru}}</td>

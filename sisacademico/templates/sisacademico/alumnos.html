@@ -12,11 +12,32 @@
 	<hr>
 </div>
 <div class = "col-md-6 col-md-offset-2">
-	<form role = "form" action = "{% url 'sisacademico:alumno_notas' %}" method="get">
-	<div class = "form-group">
-	{{form_alumnos}}
-	</div>
-	<input class = "btn btn-default" type="submit" value="Enviar"/>
+	<p id ="errores" class ="well hidden"> </p>
+	<form id="form_alumnos" role = "form" action = "{% url 'sisacademico:alumno_notas' %}" method="get">
+		<div class = "form-group">
+			{{form_alumnos}}
+		</div>
+		<input id="form_enviar" class = "btn btn-default" type="submit" value="Enviar"/>
 	</form>
 </div>
+
+<script>
+
+$(document).ready(function(){
+	$("#form_enviar").on("click", function(e){
+		e.preventDefault();
+		var cedula = $("#cedula").val();
+		console.log(cedula);
+		console.log(parseInt(cedula, 10));
+		if (cedula == parseInt(cedula, 10)){
+			console.log("es igual")
+			$("#form_alumnos").submit();
+		}
+		else{
+			$("#errores").removeClass("hidden").text("Por favor, escribe una cédula válida");
+		}
+	});
+})
+
+</script
 {% endblock content %}
