@@ -101,6 +101,7 @@ def calcular_promedio_reporte_alumno(notas):
 			notas_promedio.append(float(nota))
 
 	promedio = "-"
+
 	try:
 		promedio = "{0:.2f}".format(sum(notas_promedio)/float(len(notas_promedio)))
 	except ZeroDivisionError:
@@ -112,16 +113,61 @@ def calcular_promedio_reporte_alumno(notas):
 def obtener_notas_alumno(alumno, clases, periodo):
 	notas = []
 	for clase in clases:
-		notas_clase = {}
-		notas_clase['clase'] = clase
-		notas_obj = Nota.objects.filter(alumno=alumno, clase=clase, periodo=periodo, publicada=True)
-		for nota in notas_obj:
-			if nota.valor:
-				notas_clase[nota.tipo] = nota.valor
-			else:
-				notas_clase[nota.tipo] = "-"
+		obtener_notas_periodo(alumno, clase, periodo)
 
-		notas_clase['promedio'] = calcular_promedio_reporte_alumno(notas_clase)
+	return notas
 
+
+def obtener_notas_periodo(alumno, clase, periodo):
+	
+	notas_clase = {}
+	notas_clase['clase'] = clase
+	# print "......."
+	notas_obj = Nota.objects.filter(alumno=alumno, clase=clase, periodo=periodo, publicada=True)
+	# print "notas_obj %s" % (notas_obj)
+	for nota in notas_obj:
+		# print "nota %s" % (nota)
+		if nota.valor:
+			notas_clase[nota.tipo] = nota.valor
+		else:
+			notas_clase[nota.tipo] = "-"
+
+	notas_clase['promedio'] = calcular_promedio_reporte_alumno(notas_clase)
+
+	return notas_clase
+
+
+def obtener_notas_quimestre(alumno, clases, periodos):
+	notas = []
+
+	for clase in clases:
+		# Itera sobre las clases primero (las columnas)
+		notas_clase = [clase]
+		promediar = []
+		for periodo in periodos:
+			# Itera sobre los periodos y saca el promedio de la funcion obtener_notas_alumno
+			notas_clase_periodo = obtener_notas_periodo(alumno, clase, periodo)
+			nota = notas_clase_periodo = notas_clase_periodo['promedio']
+			notas_clase.append([periodo, nota])
+
+			try:
+				# print "nota %s" % (nota)
+				promediar.append(float(nota))
+			except:
+				pass
+
+		try:
+			# print "promediar %s" % (promediar)
+			promedio = "{0:.2f}".format(sum(promediar)/float(len(promediar)))
+		except:
+			promedio = "-"
+
+		# print "promedio %s" % (promedio)
+
+		notas_clase.extend([promedio])
+		# print "notas_clase %s" % (notas_clase)
+		
 		notas.append(notas_clase)
+		# Manda una lista con la [clase, y cada periodo con su promedio, y el promedio final]
+
 	return notas

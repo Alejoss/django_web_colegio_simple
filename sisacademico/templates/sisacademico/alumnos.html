@@ -4,18 +4,27 @@
 {% block content %}
 <div class = "col-md-10 col-md-offset-1">
 	<h2>
-		Búsqueda de Notas por Alumno <br>
+		Búsqueda de Notas de Periodos por Alumno <br>		
 		<small>
 		Introduzca el número de cédula, el periodo y el nivel del cual desea consultar las notas. 
 		</small>
 	</h2>
+	{% if tipo == 'quimestral' %}
+		<p> <a href="{% url 'sisacademico:alumnos' 'periodo' %}">Reporte de Notas por Periodo</a></p>
+	{% else %}
+		<p> <a href="{% url 'sisacademico:alumnos' 'quimestral' %}">Reporte de Notas Quimestrales</a></p>
+	{% endif %}
 	<hr>
 </div>
 <div class = "col-md-6 col-md-offset-2">
 	<p id ="errores" class ="well hidden"> </p>
+	{% if tipo == 'quimestral' %}
+	<form id="form_alumnos" role = "form" action = "{% url 'sisacademico:reporte_quimestre' %}" method="get">
+	{% else %}
 	<form id="form_alumnos" role = "form" action = "{% url 'sisacademico:alumno_notas' %}" method="get">
+	{% endif %}
 		<div class = "form-group">
-			{{form_alumnos}}
+			{{form}}
 		</div>
 		<input id="form_enviar" class = "btn btn-default" type="submit" value="Enviar"/>
 	</form>
@@ -27,10 +36,7 @@ $(document).ready(function(){
 	$("#form_enviar").on("click", function(e){
 		e.preventDefault();
 		var cedula = $("#cedula").val();
-		console.log(cedula);
-		console.log(parseInt(cedula, 10));
 		if (cedula == parseInt(cedula, 10)){
-			console.log("es igual")
 			$("#form_alumnos").submit();
 		}
 		else{

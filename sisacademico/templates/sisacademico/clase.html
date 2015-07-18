@@ -35,11 +35,15 @@
 			<tbody>
 				{% for fila in lista_datos %}
 					<tr>
-						<td> {{forloop.counter}} </td>
+						<td>{{forloop.counter}}</td>
 						<td>{{fila.alumno.nombre_completo|upper}}</td>
 						
 						<td class = "celda_nota nota_tareas" data-nota = "{{fila.tareas}}" data-id = "{{fila.tareas.id}}">
-						{{fila.tareas.valor}}
+						{% if fila.tareas.valor %}
+							{{fila.tareas.valor}}
+						{% else %}
+							-
+						{% endif %}
 						{% if fila.tareas.publicada %}
 						<button class="btn btn-warning esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
 						{% else %}
@@ -49,7 +53,11 @@
 						
 						<td class = "celda_nota nota_actividades_i" data-nota = "{{fila.actividades_individuales}}" 
 						data-id = "{{fila.actividades_individuales.id}}">
-						{{fila.actividades_individuales.valor}}
+						{% if fila.actividades_individuales.valor %}
+							{{fila.actividades_individuales.valor}}
+						{% else %}
+							-
+						{% endif %}
 						{% if fila.actividades_individuales.publicada %}
 						<button class="btn btn-warning esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
 						{% else %}
@@ -58,7 +66,11 @@
 						</td>
 						
 						<td class = "celda_nota nota_actividades_g" data-nota = "{{fila.actividades_grupales}}" data-id = "{{fila.actividades_grupales.id}}">
-						{{fila.actividades_grupales.valor}}
+						{% if fila.actividades_grupales.valor %}
+							{{fila.actividades_grupales.valor}}
+						{% else %}
+							-
+						{% endif %}
 						{% if fila.actividades_grupales.publicada %}
 						<button class="btn btn-warning  esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
 						{% else %}
@@ -67,7 +79,11 @@
 						</td>
 						
 						<td class = "celda_nota nota_lecciones" data-nota = "{{fila.lecciones}}" data-id = "{{fila.lecciones.id}}">
-						{{fila.lecciones.valor}}
+						{% if fila.actividades_grupales.valor %}
+							{{fila.lecciones.valor}}
+						{% else %}
+							-
+						{% endif %}
 						{% if fila.lecciones.publicada %}
 						<button class="btn btn-warning  esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
 						{% else %}
@@ -76,7 +92,11 @@
 						</td>
 						
 						<td class = "celda_nota nota_pruebas" data-nota = "{{fila.pruebas}}" data-id = "{{fila.pruebas.id}}">
-						{{fila.pruebas.valor}}
+						{% if fila.actividades_grupales.valor %}
+							{{fila.pruebas.valor}}
+						{% else %}
+							-
+						{% endif %}
 						{% if fila.pruebas.publicada %}
 						<button class="btn btn-warning  esconder" title="Esconder"><i class = "fa fa-external-link fa-rotate-180"></i></button>
 						{% else %}

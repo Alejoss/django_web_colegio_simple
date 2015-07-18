@@ -6,9 +6,9 @@ from django.http import HttpResponse
 
 from utils import obtener_perfil_profesor, obtener_clases_profesor, obtener_alumnos_clase,\
                 obtener_fila_alumno_notas, obtener_editar_valor_nota, obtener_clases_nivel, \
-                obtener_notas_alumno
+                obtener_notas_alumno, obtener_notas_quimestre
 from models import Clase, Periodo, Perfil_Profesor, Alumno, Nivel, Matricula, Nota
-from forms import FormPerfilProfesor, FormEditarNotas, FormBuscarAlumno, FormMatricularGrupo
+from forms import FormPerfilProfesor, FormEditarNotas, FormReportePeriodo, FormMatricularGrupo, FormReporteQuimestre
 
 
 def authcheck(request):
@@ -112,26 +112,6 @@ def logout(request):
     return redirect('inicio:sislogin')
 
 
-def alumnos(request):
-	template = "sisacademico/alumnos.html"
-	form_alumnos = FormBuscarAlumno
-	context = {'form_alumnos': form_alumnos}
-	return render(request, template, context)
-
-
-def reporte_alumno_notas(request):
-	template = "sisacademico/alumno_notas.html"
-
-	alumno = get_object_or_404(Alumno, pk=request.GET.get("cedula", " "))
-	nivel = get_object_or_404(Nivel, pk=request.GET.get("nivel", ""))
-	periodo = get_object_or_404(Periodo, pk=request.GET.get("periodo", ""))
-	clases = obtener_clases_nivel(nivel)
-	notas = obtener_notas_alumno(alumno, clases, periodo)
-	context = {'nivel': nivel, 'alumno': alumno, 'periodo': periodo, 'clases': clases, 'notas': notas}
-
-	return render(request, template, context)
-
-
 def matricular_grupo(request):
 	template = "sisacademico/matricular_grupo.html"
 
@@ -209,3 +189,47 @@ def esconder_nota(request):
 		return HttpResponse('No marcada como no publica')
 	else:
 		return HttpResponse(status_code=500)
+
+
+def alumnos(request, tipo_reporte):
+	template = "sisacademico/alumnos.html"
+	print tipo_reporte
+
+	if tipo_reporte == "quimestral":
+		form = FormReporteQuimestre
+	else:
+		form = FormReportePeriodo
+	context = {'form': form, 'tipo': tipo_reporte}
+	return render(request, template, context)
+
+
+def reporte_alumno_notas(request):
+	template = "sisacademico/alumno_notas.html"
+
+	alumno = get_object_or_404(Alumno, pk=request.GET.get("cedula", " "))
+	nivel = get_object_or_404(Nivel, pk=request.GET.get("nivel", ""))
+	periodo = get_object_or_404(Periodo, pk=request.GET.get("periodo", ""))
+	clases = obtener_clases_nivel(nivel)
+	notas = obtener_notas_alumno(alumno, clases, periodo)
+	context = {'nivel': nivel, 'alumno': alumno, 'periodo': periodo, 'clases': clases, 'notas': notas}
+
+	return render(request, template, context)
+
+
+def reporte_quimestre(request):
+	template = "sisacademico/reporte_quimestral.html"
+	
+	nivel = get_object_or_404(Nivel, pk=request.GET.get("nivel", ""))
+	alumno = get_object_or_404(Alumno, pk=request.GET.get("cedula", ""))
+	ano = request.GET.get("ano", "")
+	quimestre = request.GET.get("quimestre", "")
+
+	periodos = Periodo.objects.filter(ano_lectivo=ano, quimestre=quimestre)
+	clases = obtener_clases_nivel(nivel)
+	
+	notas = obtener_notas_quimestre(alumno, clases, periodos)
+	print "notas %s" % (notas)
+
+	context = {'nivel': nivel, 'alumno': alumno, 'quimestre': quimestre, 'clases': clases, 'notas': notas, 'ano': ano}
+
+	return render(request, template, context)

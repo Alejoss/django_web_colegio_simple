@@ -8,7 +8,8 @@ from sisacademico import views
 
 urlpatterns = patterns('',
 		url(r'^alumno_notas/$', views.reporte_alumno_notas, name='alumno_notas'),
-		url(r'^alumnos/$', views.alumnos, name='alumnos'),
+		url(r'^reporte_quimestre/$', views.reporte_quimestre, name='reporte_quimestre'),
+		url(r'^alumnos/(?P<tipo_reporte>\w+)/$', views.alumnos, name='alumnos'),
 
 		url(r'^authcheck/$', views.authcheck, name='authcheck'),
 		url(r'^cambiar_password/password_changed/$', views.password_changed, name='password_changed'),

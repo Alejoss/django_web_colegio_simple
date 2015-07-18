@@ -21,7 +21,7 @@ class NumberInput(TextInput):
 	input_type = 'number'
 
 
-class FormBuscarAlumno(forms.Form):
+class FormReportePeriodo(forms.Form):
 	periodos_obj = Periodo.objects.all()
 	periodos = []
 	for p in periodos_obj:
@@ -35,6 +35,19 @@ class FormBuscarAlumno(forms.Form):
 	cedula = forms.CharField(required=True, max_length=10, widget=TextInput(attrs={'class': 'form-control', 'id': 'cedula'}))
 	periodo = forms.ChoiceField(choices=periodos, widget=Select(attrs={'class': 'form-control'}))
 	nivel = forms.ChoiceField(choices=niveles, widget=Select(attrs={'class': 'form-control', 'name': 'nivel'}))
+
+
+class FormReporteQuimestre(forms.Form):
+
+	niveles_obj = Nivel.objects.all()
+	niveles = []
+	for n in niveles_obj:
+		niveles.append((n.id, n.nombre))
+
+	cedula = forms.CharField(required=True, max_length=10, widget=TextInput(attrs={'class': 'form-control', 'id': 'cedula'}))
+	nivel = forms.ChoiceField(choices=niveles, widget=Select(attrs={'class': 'form-control', 'name': 'nivel'}))	
+	ano = forms.CharField(required=True, max_length=4, widget=TextInput(attrs={'class': 'form-control', 'id': 'ano'}))
+	quimestre = forms.IntegerField(required=True, max_value=4, widget=NumberInput(attrs={'class': 'form-control', 'id': 'quimestre', 'max': '2', 'min': '1'}))
 
 
 class FormPerfilProfesor(forms.ModelForm):
