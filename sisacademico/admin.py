@@ -20,8 +20,28 @@ class AlumnoAdmin(admin.ModelAdmin):
 	actions = [matricular_grupo]
 
 
+def reporte_matricula(modelAdmin, request, queryset):
+
+	matriculas = []
+
+	for matricula in queryset:
+		matriculas.append(matricula.id)
+
+	request.session['matriculas'] = matriculas
+
+	return redirect('sisacademico:reporte_matricula')
+
+
+reporte_matricula.short_description = "Obtener Reporte"
+
+
+class MatriculaAdmin(admin.ModelAdmin):
+
+	actions = [reporte_matricula]
+
+
 admin.site.register(Alumno, AlumnoAdmin)
-admin.site.register(Matricula)
+admin.site.register(Matricula, MatriculaAdmin)
 admin.site.register(Nivel)
 admin.site.register(Perfil_Profesor)
 admin.site.register(Clase)

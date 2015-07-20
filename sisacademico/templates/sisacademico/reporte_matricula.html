@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>Colegio Amelia Gallegos</title>
+<link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	{% for matricula in matriculas %}
+		<div class="container-fluid">
+			<br>
+			<div class="row">
+				<div class="col-md-12">
+					<div class ="row">
+						<div class ="col-md-9">
+							<h3 class ="well">
+								Matrícula <strong> {{matricula.alumno.nombre_completo}} </strong>.
+							</h3>
+						</div>
+						<div class ="col-md-3">
+							<img class ="pull-right" src="{% static 'assets/images/logo.png' %}" height="50" alt=""/>
+						</div>
+					</div>
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								Año: {{matricula.ano_lectivo}}. <br>
+								Nivel: {{matricula.nivel.nombre}}. </br>		
+								
+							</h3>
+						</div>
+						<div class="panel-body">
+							<strong> Datos del alumno </strong> <br>
+							Cédula: {{matricula.alumno.cedula}} <br>
+							Nombres: {{matricula.alumno.nombre}} <br>
+							Apellidos: {{matricula.alumno.apellido}} {{matricula.alumno.segundo_apellido}} <br>
+							Fecha de Nacimiento: {{matricula.alumno.fecha_nacimiento}} <br>
+						</div>
+						<div class="panel-footer">
+							ID de Matrícula: {{matricula.id}}.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+	{% endfor %}
+</body>

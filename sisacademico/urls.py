@@ -9,6 +9,7 @@ from sisacademico import views
 urlpatterns = patterns('',
 		url(r'^alumno_notas/$', views.reporte_alumno_notas, name='alumno_notas'),
 		url(r'^reporte_quimestre/$', views.reporte_quimestre, name='reporte_quimestre'),
+		url(r'^reporte_matricula/$', views.reporte_matricula, name='reporte_matricula'),
 		url(r'^alumnos/(?P<tipo_reporte>\w+)/$', views.alumnos, name='alumnos'),
 
 		url(r'^authcheck/$', views.authcheck, name='authcheck'),
@@ -28,5 +29,5 @@ urlpatterns = patterns('',
 
 		url(r'^matricular_grupo/$', views.matricular_grupo, name='matricular_grupo'),
 		url(r'^publicar_nota/$', views.publicar_nota, name='publicar_nota'),
-		url(r'^esconder_nota/$', views.esconder_nota, name='esconder_nota')
+		url(r'^esconder_nota/$', views.esconder_nota, name='esconder_nota'),
 	)

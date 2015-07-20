@@ -193,7 +193,6 @@ def esconder_nota(request):
 
 def alumnos(request, tipo_reporte):
 	template = "sisacademico/alumnos.html"
-	print tipo_reporte
 
 	if tipo_reporte == "quimestral":
 		form = FormReporteQuimestre
@@ -227,9 +226,23 @@ def reporte_quimestre(request):
 	periodos = Periodo.objects.filter(ano_lectivo=ano, quimestre=quimestre)
 	clases = obtener_clases_nivel(nivel)
 	
-	notas = obtener_notas_quimestre(alumno, clases, periodos)
-	print "notas %s" % (notas)
+	notas = obtener_notas_quimestre(alumno, clases, periodos)	
 
 	context = {'nivel': nivel, 'alumno': alumno, 'quimestre': quimestre, 'clases': clases, 'notas': notas, 'ano': ano}
 
+	return render(request, template, context)
+
+
+def reporte_matricula(request):
+	template = "sisacademico/reporte_matricula.html"
+
+	ids_matriculas = request.session['matriculas']	
+
+	matriculas = []
+	for id_matricula in ids_matriculas:
+		matricula_obj = get_object_or_404(Matricula, id=id_matricula)
+		matriculas.append(matricula_obj)
+
+	context = {'matriculas': matriculas}
+	
 	return render(request, template, context)
